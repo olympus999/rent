@@ -19,6 +19,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             first_name=obj_in.first_name,
             last_name=obj_in.last_name,
             is_superuser=obj_in.is_superuser,
+            is_client=obj_in.is_client,
+            is_worker=obj_in.is_worker
         )
         db.add(db_obj)
         db.commit()
@@ -31,7 +33,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
-            update_data = obj_in.dict(exclude_unset=True)
+            update_data = obj_in.dict(exclude_unset=False)
         if update_data["password"]:
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]

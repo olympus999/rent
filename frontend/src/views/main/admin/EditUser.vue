@@ -46,6 +46,11 @@
               label="Is Superuser"
               v-model="isSuperuser"
             ></v-checkbox>
+            <div class="subheading secondary--text text--lighten-2">User is client <span v-if="isClient">(currently is a client)</span><span v-else>(currently is not a client)</span></div>
+            <v-checkbox
+              label="Is Client"
+              v-model="isClient"
+            ></v-checkbox>
             <div class="subheading secondary--text text--lighten-2">User is active <span v-if="isActive">(currently active)</span><span v-else>(currently not active)</span></div>
             <v-checkbox
               label="Is Active"
@@ -117,6 +122,7 @@ export default class EditUser extends Vue {
   public email: string = '';
   public isActive: boolean = true;
   public isSuperuser: boolean = false;
+  public isClient: boolean = false;
   public setPassword = false;
   public password1: string = '';
   public password2: string = '';

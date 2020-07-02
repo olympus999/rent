@@ -9,11 +9,13 @@
     </v-toolbar>
     <v-data-table :headers="headers" :items="users">
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
         <td>{{ props.item.email }}</td>
-        <td>{{ props.item.full_name }}</td>
+        <td>{{ props.item.first_name }}</td>
+        <td>{{ props.item.last_name }}</td>
         <td><v-icon v-if="props.item.is_active">checkmark</v-icon></td>
         <td><v-icon v-if="props.item.is_superuser">checkmark</v-icon></td>
+        <td><v-icon v-if="props.item.is_client">checkmark</v-icon></td>
+        <td><v-icon v-if="props.item.is_worker">checkmark</v-icon></td>
         <td class="justify-center layout px-0">
           <v-tooltip top>
             <span>Edit</span>
@@ -38,33 +40,45 @@ import { dispatchGetUsers } from '@/store/admin/actions';
 export default class AdminUsers extends Vue {
   public headers = [
     {
-      text: 'Name',
-      sortable: true,
-      value: 'name',
-      align: 'left',
-    },
-    {
       text: 'Email',
       sortable: true,
       value: 'email',
       align: 'left',
     },
     {
-      text: 'Full Name',
+      text: 'First Name',
       sortable: true,
-      value: 'full_name',
+      value: 'first_name',
+      align: 'left',
+    },
+    {
+      text: 'Last Name',
+      sortable: true,
+      value: 'last_name',
       align: 'left',
     },
     {
       text: 'Is Active',
       sortable: true,
-      value: 'isActive',
+      value: 'is_active',
       align: 'left',
     },
     {
       text: 'Is Superuser',
       sortable: true,
-      value: 'isSuperuser',
+      value: 'is_superuser',
+      align: 'left',
+    },
+    {
+      text: 'Is Client',
+      sortable: true,
+      value: 'is_client',
+      align: 'left',
+    },
+    {
+      text: 'Is Worker',
+      sortable: true,
+      value: 'is_worker',
       align: 'left',
     },
     {

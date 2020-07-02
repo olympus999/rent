@@ -1,10 +1,12 @@
 export interface IUserProfile {
+    id: number;
     email: string;
-    is_active: boolean;
-    is_superuser: boolean;
     first_name: string;
     last_name: string;
-    id: number;
+    is_active: boolean;
+    is_superuser: boolean;
+    is_client: boolean;
+    is_worker: boolean;
 }
 
 export interface IUserProfileUpdate {
@@ -14,6 +16,8 @@ export interface IUserProfileUpdate {
     password?: string;
     is_active?: boolean;
     is_superuser?: boolean;
+    is_client?: boolean;
+    is_worker?: boolean;
 }
 
 export interface IUserProfileCreate {
@@ -23,4 +27,6 @@ export interface IUserProfileCreate {
     password?: string;
     is_active?: boolean;
     is_superuser?: boolean;
+    is_client?: boolean;
+    is_worker?: boolean;
 }
