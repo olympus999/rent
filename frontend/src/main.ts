@@ -9,11 +9,13 @@ import router from './router';
 import store from '@/store';
 import './registerServiceWorker';
 import 'vuetify/dist/vuetify.min.css';
+import Vuetify from 'vuetify';
 
 Vue.config.productionTip = false;
-
+const vuetifyOptions = { };
 new Vue({
   router,
   store,
   render: (h) => h(App),
+  vuetify: new Vuetify(vuetifyOptions),
 }).$mount('#app');

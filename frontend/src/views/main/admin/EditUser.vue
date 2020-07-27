@@ -41,21 +41,34 @@
               :error-messages="errors.collect('email')"
               required
             ></v-text-field>
-            <div class="subheading secondary--text text--lighten-2">User is superuser <span v-if="isSuperuser">(currently is a superuser)</span><span v-else>(currently is not a superuser)</span></div>
-            <v-checkbox
-              label="Is Superuser"
-              v-model="isSuperuser"
-            ></v-checkbox>
-            <div class="subheading secondary--text text--lighten-2">User is client <span v-if="isClient">(currently is a client)</span><span v-else>(currently is not a client)</span></div>
-            <v-checkbox
-              label="Is Client"
-              v-model="isClient"
-            ></v-checkbox>
-            <div class="subheading secondary--text text--lighten-2">User is active <span v-if="isActive">(currently active)</span><span v-else>(currently not active)</span></div>
-            <v-checkbox
-              label="Is Active"
-              v-model="isActive"
-            ></v-checkbox>
+            <v-container>
+              <v-row>
+                <v-col md="auto">
+                  <v-checkbox
+                          label="Is Superuser"
+                          v-model="isSuperuser"
+                  ></v-checkbox>
+                </v-col>
+                <v-col md="auto">
+                  <v-checkbox
+                          label="Is Client"
+                          v-model="isClient"
+                  ></v-checkbox>
+                </v-col>
+                <v-col md="auto">
+                  <v-checkbox
+                          label="Is Worker"
+                          v-model="isWorker"
+                  ></v-checkbox>
+                </v-col>
+                <v-col md="auto">
+                  <v-checkbox
+                          label="Is Active"
+                          v-model="isActive"
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
+            </v-container>
             <v-layout align-center>
               <v-flex shrink>
                 <v-checkbox
@@ -117,12 +130,19 @@ import { readAdminOneUser } from '@/store/admin/getters';
 @Component
 export default class EditUser extends Vue {
   public valid = true;
+  public checkboxes = [
+          {'label': 'Superuser', 'v-model': 'isSuperuser'},
+          {'label': 'Is Client', 'v-model': 'isClient'},
+          {'label': 'Is Worker', 'v-model': 'isWorker'},
+          {'label': 'Is Active', 'v-model': 'isActive'},
+  ];
   public firstName: string = '';
   public lastName: string = '';
   public email: string = '';
   public isActive: boolean = true;
   public isSuperuser: boolean = false;
   public isClient: boolean = false;
+  public isWorker: boolean = false;
   public setPassword = false;
   public password1: string = '';
   public password2: string = '';
@@ -143,6 +163,8 @@ export default class EditUser extends Vue {
       this.email = this.user.email;
       this.isActive = this.user.is_active;
       this.isSuperuser = this.user.is_superuser;
+      this.isClient = this.user.is_client;
+      this.isWorker = this.user.is_worker;
     }
   }
 
@@ -164,6 +186,8 @@ export default class EditUser extends Vue {
       }
       updatedProfile.is_active = this.isActive;
       updatedProfile.is_superuser = this.isSuperuser;
+      updatedProfile.is_client = this.isClient;
+      updatedProfile.is_worker = this.isWorker;
       if (this.setPassword) {
         updatedProfile.password = this.password1;
       }
