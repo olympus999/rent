@@ -1,170 +1,103 @@
 <template>
-  <v-container fluid>
-    <v-card class="ma-3 pa-3">
-      <v-card-title primary-title>
-        <div class="headline primary--text">Edit User</div>
-      </v-card-title>
-      <v-card-text>
-        <template>
-          <div class="my-3">
-            <div class="subheading secondary--text text--lighten-2">Username</div>
-            <div
-              class="title primary--text text--darken-2"
-              v-if="user"
-            >{{user.email}}</div>
-            <div
-              class="title primary--text text--darken-2"
-              v-else
-            >-----</div>
-          </div>
-          <v-form
-            v-model="valid"
-            ref="form"
-            lazy-validation
-          >
-            <v-text-field
-              label="First Name"
-              v-model="firstName"
-              required
-            ></v-text-field>
-            <v-text-field
-              label="Last Name"
-              v-model="lastName"
-              required
-            ></v-text-field>
-            <v-text-field
-              label="E-mail"
-              type="email"
-              v-model="email"
-              v-validate="'required|email'"
-              data-vv-name="email"
-              :error-messages="errors.collect('email')"
-              required
-            ></v-text-field>
-            <v-container>
-              <v-row>
-                <v-col md="auto">
-                  <v-checkbox
-                          label="Is Superuser"
-                          v-model="isSuperuser"
-                  ></v-checkbox>
-                </v-col>
-                <v-col md="auto">
-                  <v-checkbox
-                          label="Is Client"
-                          v-model="isClient"
-                  ></v-checkbox>
-                </v-col>
-                <v-col md="auto">
-                  <v-checkbox
-                          label="Is Worker"
-                          v-model="isWorker"
-                  ></v-checkbox>
-                </v-col>
-                <v-col md="auto">
-                  <v-checkbox
-                          label="Is Active"
-                          v-model="isActive"
-                  ></v-checkbox>
-                </v-col>
-              </v-row>
-            </v-container>
-            <v-layout align-center>
-              <v-flex shrink>
-                <v-checkbox
-                  v-model="setPassword"
-                  class="mr-2"
-                ></v-checkbox>
-              </v-flex>
-              <v-flex>
-                <v-text-field
-                  :disabled="!setPassword"
-                  type="password"
-                  ref="password"
-                  label="Set Password"
-                  data-vv-name="password"
-                  data-vv-delay="100"
-                  v-validate="{required: setPassword}"
-                  v-model="password1"
-                  :error-messages="errors.first('password')"
-                >
-                </v-text-field>
-                <v-text-field
-                  v-show="setPassword"
-                  type="password"
-                  label="Confirm Password"
-                  data-vv-name="password_confirmation"
-                  data-vv-delay="100"
-                  data-vv-as="password"
-                  v-validate="{required: setPassword, confirmed: 'password'}"
-                  v-model="password2"
-                  :error-messages="errors.first('password_confirmation')"
-                >
-                </v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-form>
-        </template>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn @click="cancel">Cancel</v-btn>
-        <v-btn @click="reset">Reset</v-btn>
-        <v-btn
-          @click="submit"
-          :disabled="!valid"
-        >
-          Save
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-container>
+  <ValidationObserver v-slot="{ invalid }" ref="provider">
+    <v-container fluid>
+      <v-card class="ma-3 pa-3" max-width="700">
+        <v-card-title primary-title>
+          <div class="headline primary--text">Edit User</div>
+        </v-card-title>
+        <v-card-text>
+          <template>
+            <div class="my-3">
+              <div class="subheading secondary--text text--lighten-2">Username</div>
+              <div
+                class="title primary--text text--darken-2"
+                v-if="user"
+              >{{user.email}}</div>
+              <div
+                class="title primary--text text--darken-2"
+                v-else
+              >-----</div>
+            </div>
+            <v-form ref="form" lazy-validation>
+              <ValidationProvider rules="required" v-slot="{ errors, valid }">
+                <v-text-field label="First Name" v-model="firstName" :error-messages="errors" :success="valid"></v-text-field>
+              </ValidationProvider>
+              <ValidationProvider rules="required" v-slot="{ errors, valid }">
+                <v-text-field label="Last Name" v-model="lastName" :error-messages="errors" :success="valid"></v-text-field>
+              </ValidationProvider>
+              <ValidationProvider rules="required|email" v-slot="{ errors, valid }">
+                <v-text-field label="E-mail" type="email" v-model="email" :error-messages="errors" :success="valid"></v-text-field>
+              </ValidationProvider>
+              <ValidationProvider rules="required" v-slot="{ errors, valid }">
+                <v-select :items="usersRolesNames" item-text="name" v-model="role" label="User Role"
+                          :error-messages="errors" :success="valid" outlined>
+                </v-select>
+              </ValidationProvider>
+              <v-layout align-center>
+                <v-flex>
+                  <ValidationObserver v-slot="{ dirty }">
+                    <ValidationProvider name="password1" :rules="{'required':dirty, min: { length: 6 }}" v-slot="{ errors, valid }">
+                      <v-text-field type="password" label="Set Password" v-model="password1"  :error-messages="errors"
+                                    :success="valid"></v-text-field>
+                    </ValidationProvider>
+                    <ValidationProvider name="password2" :rules="{'required':dirty, min: { length: 6 }, 'duplicate': password1}" v-slot="{ errors, valid }">
+                      <v-text-field type="password" label="Confirm Password" data-vv-as="password" v-model="password2"
+                                    :error-messages="errors" :success="valid"></v-text-field>
+                    </ValidationProvider>
+                  </ValidationObserver>
+                </v-flex>
+              </v-layout>
+              <v-checkbox
+                      label="Is Active"
+                      v-model="isActive"
+              ></v-checkbox>
+            </v-form>
+          </template>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="cancel">Cancel</v-btn>
+          <v-btn @click="reset">Reset</v-btn>
+          <v-btn @click="submit" :disabled="invalid"> Save </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-container>
+  </ValidationObserver>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { IUserProfile, IUserProfileUpdate } from '@/interfaces';
-import { dispatchGetUsers, dispatchUpdateUser } from '@/store/admin/actions';
-import { readAdminOneUser } from '@/store/admin/getters';
+import { IUserProfile, IUserProfileUpdate, IUserRole } from '@/interfaces';
+import { dispatchGetUsers, dispatchUpdateUser, dispatchGetUsersRoles } from '@/store/admin/actions';
+import { readAdminOneUser, readUsersRolesNames } from '@/store/admin/getters';
 
 @Component
 export default class EditUser extends Vue {
-  public valid = true;
-  public checkboxes = [
-          {'label': 'Superuser', 'v-model': 'isSuperuser'},
-          {'label': 'Is Client', 'v-model': 'isClient'},
-          {'label': 'Is Worker', 'v-model': 'isWorker'},
-          {'label': 'Is Active', 'v-model': 'isActive'},
-  ];
+  public usersRolesNames: string[] = [];
   public firstName: string = '';
   public lastName: string = '';
   public email: string = '';
   public isActive: boolean = true;
-  public isSuperuser: boolean = false;
-  public isClient: boolean = false;
-  public isWorker: boolean = false;
-  public setPassword = false;
+  public role: string = '';
   public password1: string = '';
   public password2: string = '';
 
   public async mounted() {
     await dispatchGetUsers(this.$store);
+    await dispatchGetUsersRoles(this.$store)
+    this.usersRolesNames = await readUsersRolesNames(this.$store)
     this.reset();
   }
 
   public reset() {
-    this.setPassword = false;
     this.password1 = '';
     this.password2 = '';
-    this.$validator.reset();
     if (this.user) {
       this.firstName = this.user.first_name;
       this.lastName = this.user.last_name;
       this.email = this.user.email;
       this.isActive = this.user.is_active;
-      this.isSuperuser = this.user.is_superuser;
-      this.isClient = this.user.is_client;
-      this.isWorker = this.user.is_worker;
+      this.role = this.user.role;
     }
   }
 
@@ -173,27 +106,23 @@ export default class EditUser extends Vue {
   }
 
   public async submit() {
-    if (await this.$validator.validateAll()) {
-      const updatedProfile: IUserProfileUpdate = {};
-      if (this.firstName) {
-        updatedProfile.first_name = this.firstName;
-      }
-      if (this.lastName) {
-        updatedProfile.last_name = this.lastName;
-      }
-      if (this.email) {
-        updatedProfile.email = this.email;
-      }
-      updatedProfile.is_active = this.isActive;
-      updatedProfile.is_superuser = this.isSuperuser;
-      updatedProfile.is_client = this.isClient;
-      updatedProfile.is_worker = this.isWorker;
-      if (this.setPassword) {
-        updatedProfile.password = this.password1;
-      }
-      await dispatchUpdateUser(this.$store, { id: this.user!.id, user: updatedProfile });
-      this.$router.push('/main/admin/users');
+    const updatedProfile: IUserProfileUpdate = {};
+    if (this.firstName) {
+      updatedProfile.first_name = this.firstName;
     }
+    if (this.lastName) {
+      updatedProfile.last_name = this.lastName;
+    }
+    if (this.email) {
+      updatedProfile.email = this.email;
+    }
+    updatedProfile.is_active = this.isActive;
+    updatedProfile.role = this.role;
+    if (this.password1) {
+      updatedProfile.password = this.password1;
+    }
+    await dispatchUpdateUser(this.$store, { id: this.user!.id, user: updatedProfile });
+    this.$router.push('/main/admin/users');
   }
 
   get user() {

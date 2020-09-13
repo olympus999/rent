@@ -3,26 +3,38 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>{{appName}} - Reset Password</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              <p class="subheading">Enter your new password below</p>
-              <v-form @keyup.enter="submit" v-model="valid" ref="form" @submit.prevent="" lazy-validation>
-                <v-text-field type="password" ref="password" label="Password" data-vv-name="password" data-vv-delay="100" data-vv-rules="required" v-validate="'required'" v-model="password1" :error-messages="errors.first('password')">
-                </v-text-field>
-                <v-text-field type="password" label="Confirm Password" data-vv-name="password_confirmation" data-vv-delay="100" data-vv-rules="required|confirmed:$password" data-vv-as="password" v-validate="'required|confirmed:password'" v-model="password2" :error-messages="errors.first('password_confirmation')">
-                </v-text-field>
-              </v-form>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn @click="cancel">Cancel</v-btn>
-              <v-btn @click="reset">Clear</v-btn>
-              <v-btn @click="submit" :disabled="!valid">Save</v-btn>
-            </v-card-actions>
-          </v-card>
+          <ValidationObserver v-slot="{ invalid }" ref="provider">
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>{{appName}} - Reset Password</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <p class="subheading">Enter your new password below</p>
+                <v-form @keyup.enter="submit" ref="form">
+                  <v-layout align-center>
+                    <v-flex>
+                      <ValidationObserver>
+                        <ValidationProvider name="password1" rules="required" v-slot="{ errors, valid }">
+                          <v-text-field type="password" label="Set Password" v-model="password1"  :error-messages="errors"
+                                        :success="valid"></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="password2" rules="required|duplicate:@password1" v-slot="{ errors, valid }">
+                          <v-text-field type="password" label="Confirm Password" data-vv-as="password" v-model="password2"
+                                        :error-messages="errors" :success="valid"></v-text-field>
+                        </ValidationProvider>
+                      </ValidationObserver>
+                    </v-flex>
+                  </v-layout>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn @click="cancel">Cancel</v-btn>
+                <v-btn @click="reset">Clear</v-btn>
+                <v-btn @click="submit" :disabled="invalid">Save</v-btn>
+              </v-card-actions>
+            </v-card>
+          </ValidationObserver>
         </v-flex>
       </v-layout>
     </v-container>
@@ -40,7 +52,6 @@ import { dispatchResetPassword } from '@/store/main/actions';
 @Component
 export default class UserProfileEdit extends Vue {
   public appName = appName;
-  public valid = true;
   public password1 = '';
   public password2 = '';
 
@@ -51,7 +62,6 @@ export default class UserProfileEdit extends Vue {
   public reset() {
     this.password1 = '';
     this.password2 = '';
-    this.$validator.reset();
   }
 
   public cancel() {
@@ -72,12 +82,10 @@ export default class UserProfileEdit extends Vue {
   }
 
   public async submit() {
-    if (await this.$validator.validateAll()) {
-      const token = this.checkToken();
-      if (token) {
-        await dispatchResetPassword(this.$store, { token, password: this.password1 });
-        this.$router.push('/');
-      }
+    const token = this.checkToken();
+    if (token) {
+      await dispatchResetPassword(this.$store, { token, password: this.password1 });
+      this.$router.push('/');
     }
   }
 }

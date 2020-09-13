@@ -20,14 +20,14 @@
               <v-list-item-title>Profile</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="/main/profile/edit">
-            <v-list-item-action>
-              <v-icon>edit</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Edit Profile</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+<!--          <v-list-item to="/main/profile/edit">-->
+<!--            <v-list-item-action>-->
+<!--              <v-icon>edit</v-icon>-->
+<!--            </v-list-item-action>-->
+<!--            <v-list-item-content>-->
+<!--              <v-list-item-title>Edit Profile</v-list-item-title>-->
+<!--            </v-list-item-content>-->
+<!--          </v-list-item>-->
           <v-list-item to="/main/profile/password">
             <v-list-item-action>
               <v-icon>vpn_key</v-icon>

@@ -46,11 +46,11 @@ export default new Router({
                   component: () => import(
                     /* webpackChunkName: "main-profile" */ './views/main/profile/UserProfile.vue'),
                 },
-                {
-                  path: 'edit',
-                  component: () => import(
-                    /* webpackChunkName: "main-profile-edit" */ './views/main/profile/UserProfileEdit.vue'),
-                },
+                // {
+                //   path: 'edit',
+                //   component: () => import(
+                //     /* webpackChunkName: "main-profile-edit" */ './views/main/profile/UserProfileEdit.vue'),
+                // },
                 {
                   path: 'password',
                   component: () => import(

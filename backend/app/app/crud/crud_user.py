@@ -18,9 +18,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             hashed_password=get_password_hash(obj_in.password),
             first_name=obj_in.first_name,
             last_name=obj_in.last_name,
-            is_superuser=obj_in.is_superuser,
-            is_client=obj_in.is_client,
-            is_worker=obj_in.is_worker
+            role=obj_in.role,
         )
         db.add(db_obj)
         db.commit()
@@ -52,7 +50,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user.is_active
 
     def is_superuser(self, user: User) -> bool:
-        return user.is_superuser
+        return user.role == 'superuser'
 
 
 user = CRUDUser(User)

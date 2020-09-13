@@ -4,9 +4,7 @@ export interface IUserProfile {
     first_name: string;
     last_name: string;
     is_active: boolean;
-    is_superuser: boolean;
-    is_client: boolean;
-    is_worker: boolean;
+    role: string;
 }
 
 export interface IUserProfileUpdate {
@@ -15,9 +13,7 @@ export interface IUserProfileUpdate {
     last_name?: string;
     password?: string;
     is_active?: boolean;
-    is_superuser?: boolean;
-    is_client?: boolean;
-    is_worker?: boolean;
+    role?: string;
 }
 
 export interface IUserProfileCreate {
@@ -26,7 +22,10 @@ export interface IUserProfileCreate {
     last_name?: string;
     password?: string;
     is_active?: boolean;
-    is_superuser?: boolean;
-    is_client?: boolean;
-    is_worker?: boolean;
+    role?: string;
+}
+
+export interface IUserRole {
+    id: number;
+    name: string;
 }

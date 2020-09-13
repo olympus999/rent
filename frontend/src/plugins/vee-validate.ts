@@ -1,4 +1,8 @@
 import Vue from 'vue';
-import VeeValidate from 'vee-validate';
+import { setInteractionMode, ValidationProvider, ValidationObserver } from 'vee-validate';
 
-Vue.use(VeeValidate);
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+setInteractionMode('eager');
+
+import '@/validation.js';

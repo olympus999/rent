@@ -11,15 +11,6 @@
       <template v-slot:item.is_active="{ item }">
         <v-icon v-if="item.is_active">checkmark</v-icon>
       </template>
-      <template v-slot:item.is_superuser="{ item }">
-        <v-icon v-if="item.is_superuser">checkmark</v-icon>
-      </template>
-      <template v-slot:item.is_client="{ item }">
-        <v-icon v-if="item.is_client">checkmark</v-icon>
-      </template>
-      <template v-slot:item.is_worker="{ item }">
-        <v-icon v-if="item.is_worker">checkmark</v-icon>
-      </template>
       <template v-slot:item.actions="{ item }">
         <v-btn slot="activator" text :to="{name: 'main-admin-users-edit', params: {id: item.id}}">
           <v-icon small class="mr-2">
@@ -66,21 +57,9 @@ export default class AdminUsers extends Vue {
       align: 'left',
     },
     {
-      text: 'Is Superuser',
+      text: 'Role',
       sortable: true,
-      value: 'is_superuser',
-      align: 'left',
-    },
-    {
-      text: 'Is Client',
-      sortable: true,
-      value: 'is_client',
-      align: 'left',
-    },
-    {
-      text: 'Is Worker',
-      sortable: true,
-      value: 'is_worker',
+      value: 'role',
       align: 'left',
     },
     {
