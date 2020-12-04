@@ -8,6 +8,13 @@ export const getters = {
             state.userProfile &&
             state.userProfile.role === 'superuser' && state.userProfile.is_active);
     },
+    hasClientAccess: (state: MainState) => {
+        return (
+          (state.userProfile &&
+          state.userProfile.role === 'client' && state.userProfile.is_active) ||
+          (state.userProfile && state.userProfile.role === 'superuser')
+        );
+    },
     loginError: (state: MainState) => state.logInError,
     dashboardShowDrawer: (state: MainState) => state.dashboardShowDrawer,
     dashboardMiniDrawer: (state: MainState) => state.dashboardMiniDrawer,
@@ -22,6 +29,7 @@ const {read} = getStoreAccessors<MainState, State>('');
 export const readDashboardMiniDrawer = read(getters.dashboardMiniDrawer);
 export const readDashboardShowDrawer = read(getters.dashboardShowDrawer);
 export const readHasAdminAccess = read(getters.hasAdminAccess);
+export const readHasClientAccess = read(getters.hasClientAccess);
 export const readIsLoggedIn = read(getters.isLoggedIn);
 export const readLoginError = read(getters.loginError);
 export const readToken = read(getters.token);

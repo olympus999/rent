@@ -1,6 +1,7 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
@@ -12,25 +13,26 @@ router = APIRouter()
 @router.get("/", response_model=List[schemas.Project])
 def get_all(
     db: Session = Depends(deps.get_db),
-    current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
-    Retrieve available user roles
+    Retrieve projects
     """
-    projects = crud.project.get_all(db)
+    if not crud.user.is_superuser(current_user):
+        projects = crud.project.get_multi(db)
+    else:
+        projects = crud.project.get_multi_for_client(db,  user_id=current_user.id)
     return projects
 
 
-@router.post('/', response_model=schemas.ProjectCreateIncludeWorkers)
+@router.post('/', response_model=schemas.ProjectCreate)
 def create_project(
-    *,
+    project_in: schemas.ProjectCreate,
     db: Session = Depends(deps.get_db),
-    project_in: schemas.ProjectCreateIncludeWorkers,
-    # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
     Create project
     """
-    print(project_in)
-    project = crud.project.create(db, project_in)
-    return project
+    crud.project.create(db, obj_in=project_in, user_id=current_user.id)
+    return True

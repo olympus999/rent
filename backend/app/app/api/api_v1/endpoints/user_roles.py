@@ -17,5 +17,5 @@ def get_all(
     """
     Retrieve available user roles
     """
-    user_roles = crud.user_role.get_all(db)
+    user_roles = crud.user_role.get_multi(db)
     return user_roles

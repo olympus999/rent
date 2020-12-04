@@ -1,13 +1,5 @@
-<template>
-    $END$
-</template>
+import Vue from 'vue'
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
 
-<script>
-    export default {
-        name: "lodash"
-    }
-</script>
-
-<style scoped>
-
-</style>
+Vue.use(VueLodash, { name: 'custom', lodash })

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { apiUrl } from '@/env';
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate, IUserRole } from './interfaces';
+import {
+  IUserProfile, IUserProfileUpdate, IUserProfileCreate,
+  IUserRole, IWorkerProfile, IProjectCreate } from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -26,6 +28,12 @@ export const api = {
   },
   async getUsers(token: string) {
     return axios.get<IUserProfile[]>(`${apiUrl}/api/v1/users/`, authHeaders(token));
+  },
+  async createProject(token: string, data: IProjectCreate) {
+    return axios.post<IProjectCreate>(`${apiUrl}/api/v1/projects/`, data, authHeaders(token));
+  },
+  async getWorkers(token: string) {
+    return axios.get<IWorkerProfile[]>(`${apiUrl}/api/v1/workers/`, authHeaders(token));
   },
   async updateUser(token: string, userId: number, data: IUserProfileUpdate) {
     return axios.put(`${apiUrl}/api/v1/users/${userId}`, data, authHeaders(token));

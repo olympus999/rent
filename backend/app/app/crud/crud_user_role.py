@@ -15,9 +15,9 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 
 class CRUDUserRole(CRUDBase[UserRole, UserRoleCreate, UserRoleUpdate]):
-
-    def get_all(self, db: Session) -> Optional[ModelType]:
-        return db.query(self.model).all()
+    pass
+    # def get_all(self, db: Session) -> Optional[ModelType]:
+    #     return db.query(self.model).all()
 
 
 user_role = CRUDUserRole(UserRole)

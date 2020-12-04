@@ -10,6 +10,7 @@ class UserBase(BaseModel):
     role: Optional[str] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    available: Optional[bool] = True
 
 
 # Properties to receive via API on creation
@@ -38,3 +39,14 @@ class User(UserInDBBase):
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
+
+
+class Worker(BaseModel):
+    id: Optional[int] = None
+    is_active: Optional[bool] = True
+    role: Optional[str] = None
+    first_name: Optional[str] = None
+    available: Optional[bool] = False
+
+    class Config:
+        orm_mode = True

@@ -18,7 +18,7 @@
                 <v-text-field label="E-mail" type="email" v-model="email" :error-messages="errors" :success="valid"></v-text-field>
               </ValidationProvider>
               <ValidationProvider rules="required" v-slot="{ errors, valid }">
-                <v-select :items="usersRolesNames" item-text="name" v-model="role" label="User Role"
+                <v-select :items="usersRolesNames" item-text="name" v-model="userRole" label="User Role"
                           :error-messages="errors" :success="valid" outlined>
                 </v-select>
               </ValidationProvider>

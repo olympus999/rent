@@ -38,6 +38,18 @@
           </v-list-item>
         </v-list>
         <v-divider></v-divider>
+        <v-list subheader v-show="hasClientAccess">
+          <v-subheader>Platform</v-subheader>
+          <v-list-item to="/main/client/workers/all">
+            <v-list-item-action>
+              <v-icon>group</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Workers</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <v-divider></v-divider>
         <v-list subheader v-show="hasAdminAccess">
           <v-subheader>Admin</v-subheader>
           <v-list-item to="/main/admin/users/all">
@@ -127,7 +139,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 import { appName } from '@/env';
-import { readDashboardMiniDrawer, readDashboardShowDrawer, readHasAdminAccess } from '@/store/main/getters';
+import { readDashboardMiniDrawer, readDashboardShowDrawer, readHasAdminAccess, readHasClientAccess } from '@/store/main/getters';
 import { commitSetDashboardShowDrawer, commitSetDashboardMiniDrawer } from '@/store/main/mutations';
 import { dispatchUserLogOut } from '@/store/main/actions';
 
@@ -179,6 +191,9 @@ export default class Main extends Vue {
 
   public get hasAdminAccess() {
     return readHasAdminAccess(this.$store);
+  }
+  public get hasClientAccess() {
+    return readHasClientAccess(this.$store);
   }
 
   public async logout() {

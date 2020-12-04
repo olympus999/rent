@@ -1,4 +1,4 @@
-import { IUserProfile, IUserRole } from '@/interfaces';
+import { IUserProfile, IUserRole, IWorkerProfile } from '@/interfaces';
 import { AdminState } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
@@ -14,7 +14,7 @@ export const mutations = {
     },
     setUsersRoles(state: AdminState, payload: IUserRole[]) {
         state.usersRoles = payload;
-    }
+    },
 };
 
 const { commit } = getStoreAccessors<AdminState, State>('');

@@ -59,6 +59,18 @@ export default new Router({
               ],
             },
             {
+              path: 'client',
+              component: () => import(/* webpackChunkName: "main-admin" */ './views/main/client/Client.vue'),
+              redirect: 'client/workers/all',
+              children: [
+                {
+                  path: 'workers/all',
+                  component: () => import(
+                    /* webpackChunkName: "main-client-users" */ './views/main/client/ClientWorkers.vue'),
+                }
+              ]
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',
