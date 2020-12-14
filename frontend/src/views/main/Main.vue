@@ -48,6 +48,14 @@
               <v-list-item-title>Workers</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+<!--          <v-list-item to="/main/client/projects/all">-->
+<!--            <v-list-item-action>-->
+<!--              <v-icon>group</v-icon>-->
+<!--            </v-list-item-action>-->
+<!--            <v-list-item-content>-->
+<!--              <v-list-item-title>Projects</v-list-item-title>-->
+<!--            </v-list-item-content>-->
+<!--          </v-list-item>-->
         </v-list>
         <v-divider></v-divider>
         <v-list subheader v-show="hasAdminAccess">
@@ -66,6 +74,14 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Create User</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/admin/projects/all">
+            <v-list-item-action>
+              <v-icon>person_add</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Projects</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>

@@ -5,6 +5,7 @@ import { ClientState } from './state';
 
 const defaultState: ClientState = {
   workers: [],
+  projects: []
 };
 
 export const clientModule = {

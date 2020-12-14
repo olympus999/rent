@@ -67,6 +67,12 @@ export default new Router({
                   path: 'workers/all',
                   component: () => import(
                     /* webpackChunkName: "main-client-users" */ './views/main/client/ClientWorkers.vue'),
+                },
+                {
+                  path: 'projects/all',
+                  name: 'main-client-projects',
+                  component: () => import(
+                    /* webpackChunkName: "main-client-projects" */ './views/main/client/Projects.vue'),
                 }
               ]
             },
@@ -96,6 +102,24 @@ export default new Router({
                   component: () => import(
                     /* webpackChunkName: "main-admin-users-create" */ './views/main/admin/CreateUser.vue'),
                 },
+                {
+                  path: 'projects/all',
+                  name: 'main-admin-projects',
+                  component: () => import(
+                    /* webpackChunkName: "main-admin-projects" */ './views/main/admin/Projects.vue'),
+                },
+                {
+                  path: 'projects/create',
+                  name: 'main-admin-projects-create',
+                  component: () => import(
+                    /* webpackChunkName: "main-admin-projects-create" */ './views/main/admin/CreateEditProject.vue'),
+                },
+                {
+                  path: 'projects/edit/:id',
+                  name: 'main-admin-projects-edit',
+                  component: () => import(
+                    /* webpackChunkName: "main-admin-projects-edit" */ './views/main/admin/CreateEditProject.vue'),
+                }
               ],
             },
           ],

@@ -2,7 +2,8 @@ import axios from 'axios';
 import { apiUrl } from '@/env';
 import {
   IUserProfile, IUserProfileUpdate, IUserProfileCreate,
-  IUserRole, IWorkerProfile, IProjectCreate } from './interfaces';
+  IUserRole, IWorkerProfile, IProjectCreate, IProject, IProjectUpdate, IWorkerProfileAdmin
+} from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -33,7 +34,19 @@ export const api = {
     return axios.post<IProjectCreate>(`${apiUrl}/api/v1/projects/`, data, authHeaders(token));
   },
   async getWorkers(token: string) {
-    return axios.get<IWorkerProfile[]>(`${apiUrl}/api/v1/workers/`, authHeaders(token));
+    return axios.get<IWorkerProfileAdmin[]>(`${apiUrl}/api/v1/workers/`, authHeaders(token));
+  },
+  async getWorkersAvailable(token: string) {
+    return axios.get<IWorkerProfileAdmin[]>(`${apiUrl}/api/v1/workers/available`, authHeaders(token));
+  },
+  // async getProjectsClient(token: string) {
+  //   return axios.get<IProject[]>(`${apiUrl}/api/v1/projects/client`, authHeaders(token));
+  // },
+  async getProjectsAdmin(token: string) {
+    return axios.get<IProject[]>(`${apiUrl}/api/v1/projects/admin`, authHeaders(token));
+  },
+  async updateProjectAdmin(token: string, projectId: number, data: IProjectUpdate) {
+    return axios.put(`${apiUrl}/api/v1/projects/admin/${projectId}`, data, authHeaders(token))
   },
   async updateUser(token: string, userId: number, data: IUserProfileUpdate) {
     return axios.put(`${apiUrl}/api/v1/users/${userId}`, data, authHeaders(token));
@@ -53,4 +66,8 @@ export const api = {
       token,
     });
   },
+  async addressAutoComplete(token: string, address: string) {
+    return axios.get(`${apiUrl}/api/v1/google_maps/address_auto_complete/`,
+      {...authHeaders(token), params:{ address }})
+  }
 };

@@ -39,7 +39,7 @@
   import { Store } from 'vuex';
   import { IUserProfile } from '@/interfaces';
   import { readWorkers } from '@/store/client/getters';
-  import {dispatchGetWorkers} from '@/store/client/actions';
+  import { dispatchGetWorkers } from '@/store/client/actions';
   import CreateProject from '@/views/main/client/modals/CreateProject.vue';
   @Component({
     components: {CreateProject}
@@ -70,18 +70,8 @@
       {
         text: 'ID',
         value: 'id',
-        // width: '5'
       },
-      // {
-      //   text: 'Actions',
-      //   sortable: false,
-      //   value: 'actions',
-      //   align: 'left',
-      // },
     ];
-    // set bookedWorkers() {
-    //
-    // }
     get workers() {
       return readWorkers(this.$store);
     }

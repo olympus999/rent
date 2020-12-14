@@ -154,6 +154,18 @@ export const actions = {
             commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
         }
     },
+  async addressAutoComplete(context: MainContext, address: string) {
+      try {
+        const response = await api.addressAutoComplete(context.state.token, address)
+        if (response && response.data) {
+          return response.data
+        } else {
+          commitAddNotification(context, { color: 'error', content: 'Something went wrong with address autofill' });
+        }
+      } catch (e) {
+        commitAddNotification(context, { color: 'error', content: 'Something went wrong with address autofill' });
+      }
+  },
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -171,3 +183,4 @@ export const dispatchUpdateUserProfile = dispatch(actions.actionUpdateUserProfil
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
+export const getAddressAutoComplete = dispatch(actions.addressAutoComplete);

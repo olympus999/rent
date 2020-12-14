@@ -3,6 +3,6 @@ import { setInteractionMode, ValidationProvider, ValidationObserver } from 'vee-
 
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
-setInteractionMode('eager');
+setInteractionMode('aggressive');
 
 import '@/validation.js';
