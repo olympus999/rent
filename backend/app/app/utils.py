@@ -9,6 +9,10 @@ from jose import jwt
 
 from app.core.config import settings
 
+import googlemaps
+
+gmaps = googlemaps.Client(key='AIzaSyAlh47kwoKu3H93AyK_ds3xh7xrpf13Klg')
+
 
 def send_email(
     email_to: str,
@@ -105,3 +109,8 @@ def verify_password_reset_token(token: str) -> Optional[str]:
         return decoded_token["sub"]
     except jwt.JWTError:
         return None
+
+
+def return_addresses(input: str):
+    res = gmaps.places_autocomplete(input_text=input, components={'country': ['EE']})
+    return [x['description'] for x in res]

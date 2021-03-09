@@ -4,10 +4,14 @@ from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
-from app.models.assocations.project_worker import ProjectWorkers
+from app.models.project_worker import ProjectWorker
+from app.models.user_feedback import UserFeedback
+from app.models.project_worker_active import ProjectWorkerActive
+# from app.models import ProjectWorkerActive, ProjectWorker
+# from app.models import ProjectWorkerActive, ProjectWorker
 
 if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
+    pass
 
 
 class User(Base):
@@ -25,4 +29,8 @@ class User(Base):
 
     project = relationship('Project')
 
-    project_worker = relationship('Project', secondary=ProjectWorkers, back_populates="workers")
+    project_worker = relationship('Project', secondary=ProjectWorker.__tablename__, back_populates="workers")
+    project_worker_active = relationship('ProjectWorkerActive',
+                                         uselist=False,)
+    
+    user_feedback = relationship('UserFeedback', foreign_keys=UserFeedback.feedback_received_user_id)

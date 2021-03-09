@@ -1,12 +1,26 @@
-import {IProject, IUserProfile, IUserRole, IWorkerProfileAdmin} from '@/interfaces';
+import {
+  IProject, ITool,
+  IUserInfo,
+  IUserProfile,
+  IUserRole, IUserTool,
+  IWorkerProfileAdmin,
+  IWorkerProfileProjectAdmin,
+  IProjectWorkerAssociatedWithProject, IAccountingHour
+} from '@/interfaces';
 
 export interface AdminState {
-  // users: {
-  //
-  // },
-  users: IUserProfile[];
+  users: {
+    users: IUserProfile[];
+    clients: IUserProfile[];
+    workers: IWorkerProfileProjectAdmin[];
+    workersAvailable: IWorkerProfileAdmin[];
+    userInfo: IUserInfo;
+    userTools: IUserTool[];
+    accountingHours: IAccountingHour[];
+  },
+  tools: ITool[];
   usersRoles: IUserRole[];
   projects: IProject[];
-  workers: IWorkerProfileAdmin[];
-  workersAvailable: IWorkerProfileAdmin[];
+  projectWorkersAssociatedWithUser: IProjectWorkerAssociatedWithProject[];
+  removedProjects: IProject[];
 }

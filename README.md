@@ -829,3 +829,34 @@ $ cookiecutter --config-file ./cookiecutter-config-file.yml --output-dir ../proj
 ```
 
 That will use the file `cookiecutter-config-file.yml` in the current directory (in this project) to generate a new project inside a sibling directory `project-copy`.
+
+
+useful stuff:
+
+docker-compose up -d
+
+docker-compose exec backend bash
+
+alembic revision --autogenerate -m "add nullable to project_workers"
+
+alembic upgrade head
+
+alembic downgrade -1
+
+docker ps
+
+docker inspect 2ecd0099e712
+
+docker-compose rm -f -s -v backend
+
+docker-compose logs -f --tail="200" backend
+
+npm run serve
+
+Rebuild image when something changed.
+docker-compose up -d --no-deps --build backend
+
+# TODO
+Make project deletion available. 
+Also make sure one can view deleted project and restore?
+

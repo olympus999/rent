@@ -61,13 +61,8 @@ export default new Router({
             {
               path: 'client',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/client/Client.vue'),
-              redirect: 'client/workers/all',
+              redirect: 'client/projects/all',
               children: [
-                {
-                  path: 'workers/all',
-                  component: () => import(
-                    /* webpackChunkName: "main-client-users" */ './views/main/client/ClientWorkers.vue'),
-                },
                 {
                   path: 'projects/all',
                   name: 'main-client-projects',
@@ -83,42 +78,109 @@ export default new Router({
               children: [
                 {
                   path: 'users',
-                  redirect: 'users/all',
+                  component: RouterComponent,
+                  redirect: 'admin/users/all',
+                  children: [
+                    {
+                      path: '/',
+                      redirect: 'all',
+                    },
+                    {
+                      path: 'all',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-users" */ './views/main/admin/AdminUsers.vue'),
+                    },
+                    {
+                      path: 'edit/:id',
+                      name: 'main-admin-users-edit',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-users-edit" */ './views/main/admin/EditUser.vue'),
+                    },
+                    {
+                      path: 'create',
+                      name: 'main-admin-users-create',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-users-create" */ './views/main/admin/CreateUser.vue'),
+                    },
+                    {
+                      path: 'details/:id',
+                      name: 'main-admin-user-details',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-users-details" */ './views/main/admin/DetailsUser.vue'),
+                    },
+                  ]
                 },
                 {
-                  path: 'users/all',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-users" */ './views/main/admin/AdminUsers.vue'),
+                  path: 'workers',
+                  component: RouterComponent,
+                  redirect: 'workers/all',
+                  children: [
+/*                    {
+                      path: 'info/:id',
+                      name: 'main-admin-workers-info',
+                      component: () => import(
+                        /!* webpackChunkName: "main-admin-workers-info" *!/ './views/main/admin/UserDetails.vue'),
+                    },*/
+                    {
+                      path: 'all',
+                      name: 'main-admin-workers-all',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-workers" */ './views/main/admin/AdminWorkers.vue'),
+                    },
+                  ]
                 },
                 {
-                  path: 'users/edit/:id',
-                  name: 'main-admin-users-edit',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-users-edit" */ './views/main/admin/EditUser.vue'),
+                  path: 'projects',
+                  component: RouterComponent,
+                  redirect: 'projects/all',
+                  children: [
+                    {
+                      path: 'all',
+                      name: 'main-admin-projects',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-projects" */ './views/main/admin/Projects.vue'),
+                    },
+                    {
+                      path: 'removed',
+                      name: 'main-admin-removed-projects',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-removed-projects" */ './views/main/admin/Projects.vue'),
+                      props: {
+                        showRemovedProjects: true
+                      }
+                    },
+                    {
+                      path: 'create',
+                      name: 'main-admin-projects-create',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-projects-create" */ './views/main/admin/CreateEditProject.vue'),
+                      props: {
+                        create: true
+                      }
+                    },
+                    {
+                      path: 'edit/:id',
+                      name: 'main-admin-projects-edit',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-projects-edit" */ './views/main/admin/CreateEditProject.vue'),
+                      props: {
+                        create: true
+                      }
+                    }
+                  ]
                 },
                 {
-                  path: 'users/create',
-                  name: 'main-admin-users-create',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-users-create" */ './views/main/admin/CreateUser.vue'),
-                },
-                {
-                  path: 'projects/all',
-                  name: 'main-admin-projects',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-projects" */ './views/main/admin/Projects.vue'),
-                },
-                {
-                  path: 'projects/create',
-                  name: 'main-admin-projects-create',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-projects-create" */ './views/main/admin/CreateEditProject.vue'),
-                },
-                {
-                  path: 'projects/edit/:id',
-                  name: 'main-admin-projects-edit',
-                  component: () => import(
-                    /* webpackChunkName: "main-admin-projects-edit" */ './views/main/admin/CreateEditProject.vue'),
+                  path: 'tools',
+                  component: RouterComponent,
+                  redirect: 'tools/all',
+                  children: [
+                    {
+                      path: 'all',
+                      name: 'main-admin-tools',
+                      component: () => import(
+                        /* webpackChunkName: "main-admin-tools" */ './views/main/admin/Tools.vue'),
+                    },
+                  ]
                 }
               ],
             },

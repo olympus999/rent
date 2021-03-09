@@ -1,14 +1,24 @@
-import { mutations } from './mutations';
-import { getters } from './getters';
-import { actions } from './actions';
-import { AdminState } from './state';
+import {mutations} from './mutations';
+import {getters} from './getters';
+import {actions} from './actions';
+import {AdminState} from './state';
+import {IUserInfo} from '@/interfaces';
 
 const defaultState: AdminState = {
-  users: [],
+  users: {
+    users: [],
+    clients: [],
+    workers: [],
+    workersAvailable: [],
+    userInfo: {} as IUserInfo,
+    userTools: [],
+    accountingHours: [],
+  },
+  tools: [],
   usersRoles: [],
   projects: [],
-  workers: [],
-  workersAvailable: []
+  projectWorkersAssociatedWithUser: [],
+  removedProjects: [],
 };
 
 export const adminModule = {

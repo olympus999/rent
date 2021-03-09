@@ -1,4 +1,4 @@
-import {IWorkerProfile, IProjectWorker, IProjectWorkerUpdate} from './index';
+import {IWorkerProfile, IWorkerProfileAdmin, IProjectWorker, IProjectWorkerAdminCreateUpdate} from './index';
 
 export interface IProject {
   id: number;
@@ -8,14 +8,17 @@ export interface IProject {
   description: string;
   created_dt: Date;
   modified_dt: Date;
-  project_worker_details: IProjectWorker[]
+  removed_dt: Date | null;
+  project_worker: IProjectWorker[]
 }
 
-export interface IProjectUpdate {
+export interface IProjectAdminCreateUpdate {
+  id?: number;
+  user_id?: number;
   name?: string;
   address?: string;
   description?: string;
-  project_worker_details?: IProjectWorkerUpdate[]
+  project_worker?: IProjectWorkerAdminCreateUpdate[]
 }
 
 export interface IProjectCreate {
@@ -24,4 +27,20 @@ export interface IProjectCreate {
   address: string;
   description?: string;
   workers: IWorkerProfile[];
+}
+
+export interface IProjectForProjectWorker {
+  user_id: number;
+  name: string;
+  address: string;
+  description?: string;
+  workers: IWorkerProfileAdmin[];
+}
+
+export interface IProjectLimited {
+  id: number;
+  user_id: number;
+  name: string;
+  address: string;
+  description?: string;
 }

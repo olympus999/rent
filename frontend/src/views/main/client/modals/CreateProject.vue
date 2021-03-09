@@ -49,7 +49,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import {IProjectCreate, IWorkerProfile} from '@/interfaces';
-import {dispatchCreateProject, dispatchGetWorkers} from '@/store/client/actions';
+// import {dispatchCreateProject, dispatchGetWorkers} from '@/store/client/actions';
 
 const CreateProjectProps = Vue.extend({
   props: {
@@ -73,9 +73,9 @@ export default class CreateProject extends CreateProjectProps {
       workers: this.workers
     };
 
-    await dispatchCreateProject(this.$store, projectObject);
-    this.dialog = false;
-    await dispatchGetWorkers(this.$store);
+    // await dispatchCreateProject(this.$store, projectObject);
+    // this.dialog = false;
+    // await dispatchGetWorkers(this.$store);
   }
 }
 

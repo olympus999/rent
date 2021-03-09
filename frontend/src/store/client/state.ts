@@ -1,4 +1,4 @@
-import { IWorkerProfile, IProject } from '@/interfaces';
+import {IWorkerProfile, IProject} from '@/interfaces';
 
 export interface ClientState {
   workers: IWorkerProfile[];

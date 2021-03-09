@@ -51,6 +51,10 @@
                       label="Is Active"
                       v-model="isActive"
               ></v-checkbox>
+              <v-checkbox
+                      label="Is Available"
+                      v-model="available"
+              ></v-checkbox>
             </v-form>
           </template>
         </v-card-text>
@@ -79,6 +83,7 @@ export default class EditUser extends Vue {
   public email: string = '';
   public isActive: boolean = true;
   public role: string = '';
+  public available: boolean = true;
   public password1: string = '';
   public password2: string = '';
 
@@ -98,6 +103,7 @@ export default class EditUser extends Vue {
       this.email = this.user.email;
       this.isActive = this.user.is_active;
       this.role = this.user.role;
+      this.available = this.user.available
     }
   }
 
@@ -117,6 +123,7 @@ export default class EditUser extends Vue {
       updatedProfile.email = this.email;
     }
     updatedProfile.is_active = this.isActive;
+    updatedProfile.available = this.available;
     updatedProfile.role = this.role;
     if (this.password1) {
       updatedProfile.password = this.password1;

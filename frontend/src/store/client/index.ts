@@ -1,7 +1,7 @@
-import { mutations } from './mutations';
-import { getters } from './getters';
-import { actions } from './actions';
-import { ClientState } from './state';
+import {mutations} from './mutations';
+import {getters} from './getters';
+import {actions} from './actions';
+import {ClientState} from './state';
 
 const defaultState: ClientState = {
   workers: [],

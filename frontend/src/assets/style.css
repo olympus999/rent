@@ -1,3 +1,12 @@
 tr.background-red {
-    background-color: IndianRed !important;
+    background-color: #FEBAA8 !important;
+}
+tr.background-green {
+    background-color: #D8FFCD !important;
+}
+div.table-datepicker-overflow {
+    /*padding-top: 400px;*/
+    /*overflow-y: scroll;*/
+    /*width: 400px;*/
+    /*overflow: visible;*/
 }

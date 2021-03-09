@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-data-table :headers="headers" :items="projects">
-            <template v-slot:item.actions="{ item }">
+        <v-data-table :headers="headers" :items="projects" :sort-by="['created_dt']" :sort-desc="[true]">
+            <template v-slot:item.edit="{ item }">
                 <v-btn slot="activator" text :to="{name: 'main-admin-projects-edit', params: {id: item.id}}">
                     <v-icon small class="mr-2">
                         mdi-pencil
@@ -14,10 +14,17 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
-    import { dispatchGetProjects } from '@/store/admin/actions'
-    import { readAdminProjects } from '@/store/admin/getters';
+    import {dispatchGetProjects, dispatchGetRemovedProjects} from '@/store/admin/actions';
+    import { readAdminProjects, readAdminRemovedProjects } from '@/store/admin/getters';
+
+    const ProjectProps = Vue.extend({
+      props: {
+        showRemovedProjects: {type: Boolean, default: false}
+      }
+    })
+
     @Component
-    export default class Projects extends Vue {
+    export default class Projects extends ProjectProps {
       public headers = [
         {
           text: 'Project name',
@@ -38,18 +45,25 @@
           align: 'left',
         },
         {
-          text: 'Actions',
+          text: 'Edit',
           sortable: false,
-          value: 'actions',
+          value: 'edit',
           align: 'left',
         }
       ];
 
         get projects() {
+          if (this.showRemovedProjects) {
+            return readAdminRemovedProjects(this.$store)
+          }
             return readAdminProjects(this.$store);
         }
         public async mounted() {
-          await dispatchGetProjects(this.$store)
+          if (this.showRemovedProjects) {
+            await dispatchGetRemovedProjects(this.$store)
+          } else {
+            await dispatchGetProjects(this.$store)
+          }
         }
     }
 </script>

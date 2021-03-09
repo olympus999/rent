@@ -40,14 +40,6 @@
         <v-divider></v-divider>
         <v-list subheader v-show="hasClientAccess">
           <v-subheader>Platform</v-subheader>
-          <v-list-item to="/main/client/workers/all">
-            <v-list-item-action>
-              <v-icon>group</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Workers</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
 <!--          <v-list-item to="/main/client/projects/all">-->
 <!--            <v-list-item-action>-->
 <!--              <v-icon>group</v-icon>-->
@@ -68,6 +60,14 @@
               <v-list-item-title>Manage Users</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item to="/main/admin/workers/all">
+            <v-list-item-action>
+              <v-icon>work</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Manage Workers</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item to="/main/admin/users/create">
             <v-list-item-action>
               <v-icon>person_add</v-icon>
@@ -76,12 +76,36 @@
               <v-list-item-title>Create User</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item to="/main/admin/projects/all">
+          <v-list-item to="/main/admin/projects/create">
             <v-list-item-action>
-              <v-icon>person_add</v-icon>
+              <v-icon>add_task</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Projects</v-list-item-title>
+              <v-list-item-title>Create Project</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/admin/projects/all">
+            <v-list-item-action>
+              <v-icon>task_alt</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Manage Projects</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/admin/projects/removed">
+            <v-list-item-action>
+              <v-icon>task_alt</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Removed Projects</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/main/admin/tools/all">
+            <v-list-item-action>
+              <v-icon>task_alt</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Manage Tools</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>

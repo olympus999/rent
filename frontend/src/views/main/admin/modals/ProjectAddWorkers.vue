@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on" :disabled="disabled">
           Add workers
         </v-btn>
       </template>
@@ -50,14 +50,15 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'vue-property-decorator';
-  import {IProjectWorkerUpdate, IUserProfile, IWorkerProfile} from '@/interfaces';
-  import {readAdminWorkers, readAdminWorkersAvailable} from '@/store/admin/getters';
-  import {dispatchGetWorkersAvailable} from '@/store/admin/actions';
+  import { Component, Vue} from 'vue-property-decorator';
+  import { IProjectWorkerAdminCreateUpdate, IUserProfile } from '@/interfaces';
+  import { readAdminWorkersAvailable } from '@/store/admin/getters';
+  import { dispatchGetWorkersAvailable } from '@/store/admin/actions';
 
   const ProjectAddWorkersProps = Vue.extend({
     props: {
-      projectWorkerDetails: Array as () => IProjectWorkerUpdate[]
+      projectWorker: Array as () => IProjectWorkerAdminCreateUpdate[],
+      disabled: {type: Boolean, default: false}
     }
   });
 
@@ -94,6 +95,7 @@
 
     public async submit() {
       this.$emit('handle-add-workers', this.bookedWorkers);
+      this.bookedWorkers = []
       this.dialog = false;
     }
 
@@ -106,7 +108,7 @@
     }
 
     get availableWorkers() {
-      const existingUserIds = this.projectWorkerDetails.map((obj) => obj.worker.id);
+      const existingUserIds = this.projectWorker.map((obj) => obj.worker.id);
       return readAdminWorkersAvailable(this.$store)(existingUserIds);
     }
 

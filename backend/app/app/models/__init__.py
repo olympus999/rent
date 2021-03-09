@@ -2,3 +2,12 @@ from .item import Item
 from .user import User
 from .user_role import UserRole
 from .project import Project
+from .project_worker import ProjectWorker
+from .project_worker_active import ProjectWorkerActive
+from .user_feedback import UserFeedback
+from .tool import Tool
+from .user_tool import UserTool
+from .accounting_balance import AccountingBalance
+from .accounting_hour import AccountingHour
+from .accounting_transaction import AccountingTransaction
+from .accounting_transaction_type import AccountingTransactionType

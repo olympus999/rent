@@ -2,7 +2,10 @@ import axios from 'axios';
 import { apiUrl } from '@/env';
 import {
   IUserProfile, IUserProfileUpdate, IUserProfileCreate,
-  IUserRole, IWorkerProfile, IProjectCreate, IProject, IProjectUpdate, IWorkerProfileAdmin
+  IUserRole, IWorkerProfile, IProjectCreate, IProject,
+  IProjectAdminCreateUpdate, IWorkerProfileAdmin, IWorkerProfileProjectAdmin, IUserFeedbackCreate,
+  IUserInfo, ITool, IToolCreate, IToolUpdate, IUserToolCreate, IUserTool, IUserToolUpdate,
+  IAccountingHour, IAccountingHourCreateUpdate
 } from './interfaces';
 
 function authHeaders(token: string) {
@@ -30,22 +33,34 @@ export const api = {
   async getUsers(token: string) {
     return axios.get<IUserProfile[]>(`${apiUrl}/api/v1/users/`, authHeaders(token));
   },
-  async createProject(token: string, data: IProjectCreate) {
-    return axios.post<IProjectCreate>(`${apiUrl}/api/v1/projects/`, data, authHeaders(token));
+  async getClients(token: string) {
+    return axios.get<IUserProfile[]>(`${apiUrl}/api/v1/clients/`, authHeaders(token));
   },
+  // async createProject(token: string, data: IProjectCreate) {
+  //   return axios.post<IProjectCreate>(`${apiUrl}/api/v1/projects/`, data, authHeaders(token));
+  // },
   async getWorkers(token: string) {
-    return axios.get<IWorkerProfileAdmin[]>(`${apiUrl}/api/v1/workers/`, authHeaders(token));
+    return axios.get<IWorkerProfileProjectAdmin[]>(`${apiUrl}/api/v1/workers/`, authHeaders(token));
   },
   async getWorkersAvailable(token: string) {
-    return axios.get<IWorkerProfileAdmin[]>(`${apiUrl}/api/v1/workers/available`, authHeaders(token));
+    return axios.get<IUserProfile[]>(`${apiUrl}/api/v1/workers/available`, authHeaders(token));
   },
   // async getProjectsClient(token: string) {
   //   return axios.get<IProject[]>(`${apiUrl}/api/v1/projects/client`, authHeaders(token));
   // },
+  async removeProject(token: string, projectId: number) {
+    return axios.delete(`${apiUrl}/api/v1/projects/admin/${projectId}`, authHeaders(token));
+  },
   async getProjectsAdmin(token: string) {
     return axios.get<IProject[]>(`${apiUrl}/api/v1/projects/admin`, authHeaders(token));
   },
-  async updateProjectAdmin(token: string, projectId: number, data: IProjectUpdate) {
+  async getRemovedProjectsAdmin(token: string) {
+    return axios.get<IProject[]>(`${apiUrl}/api/v1/projects/admin/removed`, authHeaders(token));
+  },
+  async createProjectAdmin(token: string, data: IProjectAdminCreateUpdate) {
+    return axios.post(`${apiUrl}/api/v1/projects/admin/`, data, authHeaders(token))
+  },
+  async updateProjectAdmin(token: string, projectId: number, data: IProjectAdminCreateUpdate) {
     return axios.put(`${apiUrl}/api/v1/projects/admin/${projectId}`, data, authHeaders(token))
   },
   async updateUser(token: string, userId: number, data: IUserProfileUpdate) {
@@ -69,5 +84,41 @@ export const api = {
   async addressAutoComplete(token: string, address: string) {
     return axios.get(`${apiUrl}/api/v1/google_maps/address_auto_complete/`,
       {...authHeaders(token), params:{ address }})
+  },
+  async addUserFeedback(token: string, data: IUserFeedbackCreate) {
+    return axios.post(`${apiUrl}/api/v1/user_feedback/`, data, authHeaders(token))
+  },
+  async getUserInfo(token: string, userId: number) {
+    return axios.get<IUserInfo>(`${apiUrl}/api/v1/users/info/${userId}`, authHeaders(token))
+  },
+  async getTools(token: string) {
+    return axios.get<ITool[]>(`${apiUrl}/api/v1/tools`, authHeaders(token))
+  },
+  async createTool(token: string, data: IToolCreate) {
+    return axios.post<ITool>(`${apiUrl}/api/v1/tools`, data, authHeaders(token))
+  },
+  async updateTool(token: string, data: IToolUpdate) {
+    return axios.put<ITool>(`${apiUrl}/api/v1/tools/${data.id}`, data, authHeaders(token))
+  },
+  async removeTool(token: string, toolId: number) {
+    return axios.delete(`${apiUrl}/api/v1/tools/${toolId}`, authHeaders(token))
+  },
+  async getUserTools(token: string, userId: number) {
+    return axios.get<IUserTool[]>(`${apiUrl}/api/v1/user_tools/user/${userId}`, authHeaders(token))
+  },
+  async createUserTool(token: string, data: IUserToolCreate) {
+    return axios.post<IUserTool>(`${apiUrl}/api/v1/user_tools/`, data, authHeaders(token))
+  },
+  async updateUserTool(token: string, data: IUserToolUpdate) {
+    return axios.put<IUserTool>(`${apiUrl}/api/v1/user_tools/${data.id}`, data, authHeaders(token))
+  },
+  async removeUserTool(token: string, userToolId: number) {
+    return axios.delete(`${apiUrl}/api/v1/user_tools/${userToolId}`, authHeaders(token))
+  },
+  async getProjectWorkersAssociatedWithUser(token: string, userId: number) {
+    return axios.get(`${apiUrl}/api/v1/project_worker/user/${userId}/projects`, authHeaders(token))
+  },
+  async getAccountingHoursByUser(token: string, userId: number, minDate: string, maxDate: string) {
+    return axios.get<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/user/${userId}/${minDate}/${maxDate}`, authHeaders(token))
   }
 };

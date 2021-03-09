@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import Vuex, { StoreOptions } from 'vuex';
+import Vuex, {StoreOptions} from 'vuex';
 
-import { mainModule } from './main';
-import { State } from './state';
-import { adminModule } from './admin';
-import { clientModule } from './client';
+import {mainModule} from './main';
+import {State} from './state';
+import {adminModule} from './admin';
+import {clientModule} from './client';
 
 Vue.use(Vuex);
 
