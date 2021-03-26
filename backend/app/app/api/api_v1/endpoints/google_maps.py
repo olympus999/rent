@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.get("/address_auto_complete/", response_model=Any)
 def read_users(
-    # current_user: models.User = Depends(deps.get_current_active_user),
+    current_user: models.User = Depends(deps.get_current_active_user),
     address: str,
 ) -> Any:
     """

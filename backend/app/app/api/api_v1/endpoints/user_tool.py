@@ -30,7 +30,7 @@ def get_user_tools(
 def add_tool_to_user(
     user_tool_in: schemas.UserToolCreate,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Add tool to user
@@ -44,7 +44,7 @@ def update_user_tool(
     user_tool_in: schemas.UserToolUpdate,
     user_tool_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Update user_tool description
@@ -61,7 +61,7 @@ def update_user_tool(
 def remove_user_tool(
     user_tool_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Remove user_tool

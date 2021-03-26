@@ -84,7 +84,7 @@ def read_user_by_id(
 @router.get("/info/{user_id}", response_model=schemas.UserInfo)
 def get_user_info_by_id(
     user_id: int,
-    # current_user: models.User = Depends(deps.get_current_active_user),
+    current_user: models.User = Depends(deps.get_current_active_user),
     db: Session = Depends(deps.get_db),
 ) -> Any:
     """

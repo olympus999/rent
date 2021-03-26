@@ -13,7 +13,7 @@ router = APIRouter()
 def get_accounting_transactions_by_user_id(
     user_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Get accounting transactions for user
@@ -27,7 +27,7 @@ def get_accounting_transactions_by_user_id(
 def set_accounting_transaction(
     accounting_transaction_in: AccountingTransactionCreate,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Set accounting transaction

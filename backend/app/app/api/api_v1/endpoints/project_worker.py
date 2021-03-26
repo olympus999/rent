@@ -13,7 +13,7 @@ router = APIRouter()
 def get_projects_associated_with_user(
     user_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Get project_workers with projects for User

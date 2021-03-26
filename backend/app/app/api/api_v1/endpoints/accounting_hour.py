@@ -21,7 +21,7 @@ def get_accounting_hours_by_user_id(
         min_date: date,
         max_date: date,
         db: Session = Depends(deps.get_db),
-        # current_user: models.User = Depends(deps.get_current_active_superuser),
+        current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Get accounting hours for user
@@ -35,7 +35,7 @@ def get_accounting_hours_by_user_id(
 def set_accounting_hour(
     accounting_hour_in: List[AccountingHourCreateOrUpdate],
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> List[AccountingHour]:
     """
     Set accounting hour

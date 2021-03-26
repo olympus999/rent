@@ -16,7 +16,7 @@ router = APIRouter()
 @router.get("/")
 def get_tools(
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Get tools
@@ -29,7 +29,7 @@ def get_tools(
 def create_tool(
     tool_in: schemas.ToolCreate,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Create tool

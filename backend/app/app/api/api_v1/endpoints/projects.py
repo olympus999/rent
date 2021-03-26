@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/admin", response_model=List[schemas.ProjectWithProjectWorker])
 def get_all(
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
     Retrieve projects
@@ -27,7 +27,7 @@ def get_all(
 @router.get("/admin/removed", response_model=List[schemas.ProjectWithProjectWorker])
 def get_all(
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
     Retrieve projects
@@ -41,7 +41,7 @@ def update_project(
     project_in: schemas.ProjectAdminCreateUpdate,
     # project_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Update project
@@ -55,7 +55,7 @@ def create_project(
     # user_id: int,
     # project_id: int,
     db: Session = Depends(deps.get_db),
-    # current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Update project
@@ -81,7 +81,7 @@ def delete_project(
 # @router.get("/client", response_model=List[schemas.ProjectWithProjectWorker])
 # def get_all(
 #     db: Session = Depends(deps.get_db),
-#     # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+#     current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 # ) -> Any:
 #     """
 #     Retrieve projects

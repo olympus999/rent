@@ -17,7 +17,7 @@ def read_workers(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
     Retrieve users.
@@ -34,7 +34,7 @@ def read_available_workers(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    # current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
+    current_user: models.User = Depends(deps.get_current_active_client_or_superuser),
 ) -> Any:
     """
     Retrieve users.
