@@ -20,7 +20,7 @@
 #
 #     # name = Column(String)
 #     # address = Column(String)
-#     # created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-#     # modified_dt = Column(DateTime, default=datetime.datetime.utcnow)
+#     # created_dt = Column(DateTime(timezone=True)(timezone=True), default=datetime.datetime.utcnow)
+#     # modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
 #     #
 #     # workers = relationship('User', secondary=ProjectWorkers.__tablename__, back_populates="project_worker")

@@ -23,10 +23,10 @@ def update_or_create_project(db: Session,
         @param project_in:
     """
 
-    json_project_in = jsonable_encoder(project_in, exclude_unset=True)
+    # json_project_in = jsonable_encoder(project_in, exclude_unset=True)
     # json_project_worker_in = jsonable_encoder(project_in.project_worker, exclude_unset=True)
-    print('json_project_in')
-    print(json_project_in)
+    # print('json_project_in')
+    # print(json_project_in)
     # print('json_project_worker_in')
     # print(json_project_worker_in)
 

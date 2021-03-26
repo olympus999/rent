@@ -9,7 +9,7 @@ from app.schemas.accounting_transaction import AccountingTransactionCreate
 router = APIRouter()
 
 
-@router.get("/{user_id}")
+@router.get("/user/{user_id}")
 def get_accounting_transactions_by_user_id(
     user_id: int,
     db: Session = Depends(deps.get_db),

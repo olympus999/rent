@@ -19,9 +19,9 @@ class Project(Base):
     name = Column(String)
     address = Column(String)
     description = Column(String)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-    modified_dt = Column(DateTime, default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
-    removed_dt = Column(DateTime)
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+    modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
+    removed_dt = Column(DateTime(timezone=True))
 
     workers = relationship('User', secondary=ProjectWorker.__tablename__, back_populates="project_worker")
     project_worker = relationship('ProjectWorker')

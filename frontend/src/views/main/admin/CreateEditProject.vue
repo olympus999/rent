@@ -354,7 +354,6 @@
       } else {
         await dispatchCreateProject(this.$store, {project: currentProject})
       }
-      // await this.reset();
     }
   }
 </script>

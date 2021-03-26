@@ -19,6 +19,7 @@ reusable_oauth2 = OAuth2PasswordBearer(
 def get_db() -> Generator:
     try:
         db = SessionLocal()
+        db.execute("SET LOCAL TIME ZONE 'Europe/Tallinn'")
         yield db
     finally:
         db.close()

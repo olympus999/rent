@@ -7,6 +7,7 @@ import {
   IUserInfo, ITool, IToolCreate, IToolUpdate, IUserToolCreate, IUserTool, IUserToolUpdate,
   IAccountingHour, IAccountingHourCreateUpdate
 } from './interfaces';
+import {IAccountingTransactionCreate} from '@/interfaces/AccountingTransaction';
 
 function authHeaders(token: string) {
   return {
@@ -120,5 +121,20 @@ export const api = {
   },
   async getAccountingHoursByUser(token: string, userId: number, minDate: string, maxDate: string) {
     return axios.get<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/user/${userId}/${minDate}/${maxDate}`, authHeaders(token))
+  },
+  async createUpdateAccountingHours(token: string, data: IAccountingHourCreateUpdate[]) {
+    return axios.post<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour`, data, authHeaders(token))
+  },
+  async getAccountingTransactions(token: string, userId: number) {
+    return axios.get(`${apiUrl}/api/v1/accounting_transaction/user/${userId}`, authHeaders(token))
+  },
+  async createAccountingTransaction(token: string, data: IAccountingTransactionCreate) {
+    return axios.post(`${apiUrl}/api/v1/accounting_transaction/`, data, authHeaders(token))
+  },
+  async getAccountingTransactionTypes(token: string) {
+    return axios.get(`${apiUrl}/api/v1/accounting_transaction_type/`, authHeaders(token))
+  },
+  async getAccountingBalanceByUser(token: string, userId: number) {
+    return axios.get(`${apiUrl}/api/v1/accounting_balance/${userId}`, authHeaders(token))
   }
 };

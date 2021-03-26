@@ -32,6 +32,9 @@
           </v-icon>
         </v-btn>
       </template>
+      <template v-slot:item.created_dt="{ item }">
+        <data-table-date-column :dt="item.created_dt"></data-table-date-column>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -41,14 +44,16 @@
   import {Component, Vue} from 'vue-property-decorator';
   import {dispatchGetUserInfo} from '@/store/admin/actions';
   import {readAdminUserInfo} from '@/store/admin/getters';
+  import DataTableDateColumn from '@/components/DataTableDateColumn.vue';
 
   const UserDetailsFeedbackProps = Vue.extend({
     props: {
       userId: {type: Number}
     }
   });
-
-  @Component
+  @Component({
+    components: {DataTableDateColumn}
+  })
   export default class UserDetailsFeedback extends UserDetailsFeedbackProps {
     public headers = [
       {

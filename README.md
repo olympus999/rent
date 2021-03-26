@@ -847,7 +847,7 @@ docker ps
 
 docker inspect 2ecd0099e712
 
-docker-compose rm -f -s -v backend
+# docker-compose rm -f -s -v backend
 
 docker-compose logs -f --tail="200" backend
 

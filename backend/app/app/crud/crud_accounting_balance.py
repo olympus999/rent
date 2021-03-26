@@ -11,9 +11,21 @@ import numpy as np
 
 class CRUDAccountingBalance(CRUDBase[AccountingBalance, AccountingBalanceCreate, AccountingBalanceUpdate]):
 
+    def create_0_balance(self, db: Session, user_id: int, commit: bool = True):
+        obj_in = AccountingBalanceCreate(user_id=user_id, balance=0)
+        db_obj = self.create(db, obj_in=obj_in)
+        if commit:
+            db.add(db_obj)
+            db.commit()
+        return db
+
     def get_by_user_id(self, db: Session, user_id: int):
-        return db.query(AccountingBalance)\
+        db_obj = db.query(AccountingBalance)\
             .filter(self.model.user_id == user_id).first()
+        if not db_obj:
+            self.create_0_balance(db, user_id)
+            db_obj = self.get_by_user_id(db, user_id)
+        return db_obj
 
     # noinspection PyMethodOverriding
     def update(self,
@@ -25,8 +37,7 @@ class CRUDAccountingBalance(CRUDBase[AccountingBalance, AccountingBalanceCreate,
         db_obj = self.get_by_user_id(db, user_id)
         # If Balance object does not exist, create one
         if not db_obj:
-            obj_in = AccountingBalanceCreate(user_id=user_id, balance=0)
-            db_obj = self.create(db, obj_in=obj_in)
+            db = self.create_0_balance(db, user_id, commit=False)
 
         db_obj.balance = db_obj.balance + add
         db.add(db_obj)

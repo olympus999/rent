@@ -16,7 +16,7 @@ class AccountingBalance(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), index=True, nullable=False, unique=True)
     balance = Column(Numeric, nullable=False)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-    modified_dt = Column(DateTime, default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+    modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
 
     user = relationship('User')

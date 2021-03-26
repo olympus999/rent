@@ -26,7 +26,6 @@
   export default class AddressAutoComplete extends AddressAutoCompleteProps {
     public addressOptions: string[] = [];
     public addressTyping: string = '';
-    // public addressAutoCompleted: string = ''
     public timer: number = 0;
 
     async updated() {

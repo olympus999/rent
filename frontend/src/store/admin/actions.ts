@@ -1,6 +1,7 @@
 import {api} from '@/api';
 import {ActionContext} from 'vuex';
 import {
+  IAccountingHourCreateUpdate,
   IProjectAdminCreateUpdate, IToolCreate, IToolUpdate,
   IUserFeedbackCreate,
   IUserProfileCreate,
@@ -20,12 +21,17 @@ import {
   commitSetUserInfo,
   commitSetTools,
   commitSetUserTools,
-  commitSetProjectWorkersAssociatedWithUser, commitSetUserAccountingHours
+  commitSetProjectWorkersAssociatedWithUser,
+  commitSetUserAccountingHours,
+  commitSetUserAccountingTransaction,
+  commitSetUserAccountingTransactionTypes, commitSetUserAccountingBalance
 } from './mutations';
 import {dispatchCheckApiError} from '../main/actions';
 import {commitAddNotification, commitRemoveNotification} from '../main/mutations';
 import {commitSetProjects, commitSetClients} from '@/store/admin/mutations';
 import router from '@/router';
+import Main from '@/views/main/Main.vue';
+import {IAccountingTransactionCreate} from '@/interfaces/AccountingTransaction';
 
 type MainContext = ActionContext<AdminState, State>;
 
@@ -309,7 +315,7 @@ export const actions = {
       await manageError(error, context, loadingNotification)
     }
   },
-  async actionGetUserAccountingHour(context: MainContext, payload: {userId: number, minDate: string, maxDate: string}) {
+  async actionGetAccountingHourByUser(context: MainContext, payload: {userId: number, minDate: string, maxDate: string}) {
     const loadingNotification = {content: 'getting', showProgress: true};
     try {
       const response = await api.getAccountingHoursByUser(context.rootState.main.token,
@@ -318,6 +324,66 @@ export const actions = {
         payload.maxDate);
       if (response) {
         commitSetUserAccountingHours(context, response.data);
+      }
+    } catch (error) {
+      await manageError(error, context, loadingNotification)
+    }
+  },
+  async actionCreateUpdateAccountingHours(context: MainContext, payload: {accountingHours: IAccountingHourCreateUpdate[]}) {
+    const loadingNotification = {content: 'saving', showProgress: true};
+    try {
+      commitAddNotification(context, loadingNotification);
+      await api.createUpdateAccountingHours(context.rootState.main.token, payload.accountingHours);
+      commitRemoveNotification(context, loadingNotification);
+      commitAddNotification(context, {content: 'Accounting hours have been updated', color: 'success'});
+      if (payload.accountingHours.length > 0)
+        await dispatchGetUserAccountingBalanceByUser(context, {userId: payload.accountingHours[0].user_id})
+    } catch (error) {
+      await manageError(error, context, loadingNotification)
+    }
+  },
+  async actionGetAccountingTransactionByUser(context: MainContext, payload: {userId: number}) {
+    const loadingNotification = {content: 'saving', showProgress: true};
+    try {
+      const response = await api.getAccountingTransactions(context.rootState.main.token, payload.userId);
+      if (response) {
+        commitSetUserAccountingTransaction(context, response.data);
+      }
+    } catch (error) {
+      await manageError(error, context, loadingNotification)
+    }
+  },
+  async actionCreateAccountingTransaction(context: MainContext, payload: {accountingTransaction: IAccountingTransactionCreate}) {
+    const loadingNotification = {content: 'saving', showProgress: true};
+    try {
+      commitAddNotification(context, loadingNotification);
+      await api.createAccountingTransaction(context.rootState.main.token, payload.accountingTransaction);
+      commitRemoveNotification(context, loadingNotification);
+      commitAddNotification(context, {content: 'Accounting transaction has been Created', color: 'success'});
+      await dispatchGetUserAccountingBalanceByUser(context, {userId: payload.accountingTransaction.user_id})
+      return true
+    } catch (error) {
+      await manageError(error, context, loadingNotification)
+      return false
+    }
+  },
+  async actionGetUserAccountingTransactionTypes(context: MainContext) {
+    const loadingNotification = {content: 'saving', showProgress: true};
+    try {
+      const response = await api.getAccountingTransactionTypes(context.rootState.main.token);
+      if (response) {
+        commitSetUserAccountingTransactionTypes(context, response.data);
+      }
+    } catch (error) {
+      await manageError(error, context, loadingNotification)
+    }
+  },
+  async actionGetAccountingBalanceByUser(context: MainContext, payload: {userId: number}) {
+    const loadingNotification = {content: 'saving', showProgress: true};
+    try {
+      const response = await api.getAccountingBalanceByUser(context.rootState.main.token, payload.userId);
+      if (response) {
+        commitSetUserAccountingBalance(context, response.data);
       }
     } catch (error) {
       await manageError(error, context, loadingNotification)
@@ -350,4 +416,9 @@ export const dispatchCreateUserTool = dispatch(actions.actionCreateUserTool)
 export const dispatchUpdateUserTool = dispatch(actions.actionUpdateUserTool)
 export const dispatchRemoveUserTool = dispatch(actions.actionRemoveUserTool)
 export const dispatchGetProjectWorkersAssociatedWithUser = dispatch(actions.actionGetProjectWorkersAssociatedWithUser)
-export const dispatchGetUserAccountingHour = dispatch(actions.actionGetUserAccountingHour)
+export const dispatchGetUserAccountingHour = dispatch(actions.actionGetAccountingHourByUser)
+export const dispatchCreateUpdateAccountingHours = dispatch(actions.actionCreateUpdateAccountingHours)
+export const dispatchGetUserAccountingTransaction = dispatch(actions.actionGetAccountingTransactionByUser)
+export const dispatchCreateAccountingTransaction = dispatch(actions.actionCreateAccountingTransaction)
+export const dispatchGetUserAccountingTransactionTypes = dispatch(actions.actionGetUserAccountingTransactionTypes)
+export const dispatchGetUserAccountingBalanceByUser = dispatch(actions.actionGetAccountingBalanceByUser)

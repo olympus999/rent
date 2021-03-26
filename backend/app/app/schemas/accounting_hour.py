@@ -35,6 +35,7 @@ class AccountingHourCreate(BaseModel):
 
 class AccountingHourUpdate(BaseModel):
     id: int = None
+    project_id: int = None
     hour_count: Optional[Decimal] = 0
     per_hour_cost: Optional[Decimal] = 0
     comment: Optional[str] = None

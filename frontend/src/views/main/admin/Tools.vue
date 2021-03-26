@@ -24,50 +24,56 @@
               New Item
             </v-btn>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+          <ValidationObserver v-slot="{ invalid }" ref="provider">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                          cols="12"
-                          sm="6"
-                          md="10"
-                  >
-                    <v-text-field
-                            v-model="editedItem.name"
-                            label="Name"
-                    ></v-text-field>
-                    <v-text-field
-                            v-model="editedItem.description"
-                            label="Description"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col
+                            cols="12"
+                            sm="6"
+                            md="10"
+                    >
+                      <ValidationProvider rules="required" v-slot="{ errors, valid }">
+                        <v-text-field
+                                v-model="editedItem.name"
+                                label="Name"
+                                :error-messages="errors" :success="valid"
+                        ></v-text-field>
+                      </ValidationProvider>
+                      <v-text-field
+                              v-model="editedItem.description"
+                              label="Description"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="save"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="close"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="save"
+                        :disabled="invalid"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </ValidationObserver>>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="600px">
           <v-card>

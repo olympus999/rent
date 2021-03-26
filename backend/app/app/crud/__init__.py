@@ -8,6 +8,7 @@ from .crud_user_tool import user_tool
 from .crud_accounting_balance import accounting_balance
 from .crud_accounting_hour import accounting_hour
 from .crud_accounting_transaction import accounting_transaction
+from .crud_accounting_transaction_type import accounting_transaction_type
 
 # For a new basic set of CRUD operations you could just do
 

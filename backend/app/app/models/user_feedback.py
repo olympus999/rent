@@ -23,7 +23,7 @@ class UserFeedback(Base):
     project_worker_id = Column(Integer, ForeignKey('project_worker.id'), index=True, nullable=False)
     rating = Column(SmallInteger, nullable=False)
     comment = Column(Text)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, nullable=False)
 
     project_worker = relationship('ProjectWorker')
     feedback_given_user = relationship('User', foreign_keys=[feedback_given_user_id])

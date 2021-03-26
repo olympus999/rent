@@ -15,7 +15,7 @@ class CRUDAccountingHour(CRUDBase[AccountingHour, AccountingHourCreate, Accounti
     def create_or_update_multi(self, db: Session, _in: List[AccountingHourCreateOrUpdate]):
         # Make sure all changes are for one user only
         assert np.unique([x.user_id for x in _in]).size == 1
-
+        # print("obj_in", jsonable_encoder(_in))
         for obj_in in _in:
             if obj_in.id is None:
                 accounting_hour_create = AccountingHourCreate(
@@ -30,13 +30,22 @@ class CRUDAccountingHour(CRUDBase[AccountingHour, AccountingHourCreate, Accounti
             else:
                 accounting_hour_update = AccountingHourUpdate(
                     id=obj_in.id,
+                    project_id=obj_in.project_id,
                     hour_count=obj_in.hour_count,
                     per_hour_cost=obj_in.per_hour_cost,
                     comment=obj_in.comment
                 )
+                # print('accounting_hour_update', accounting_hour_update)
                 db = self.update(db, accounting_hour_update, commit=False)
         db.commit()
+        self.remove_0_balance(db, commit=True)
         return True
+
+    def remove_0_balance(self, db: Session, commit=True):
+        db.query(self.model).filter(self.model.hour_count == 0).delete()
+        if commit:
+            db.commit()
+        return db
 
     # noinspection PyMethodOverriding
     def create(self, db: Session, obj_in: AccountingHourCreate, commit: bool = True):
@@ -65,12 +74,13 @@ class CRUDAccountingHour(CRUDBase[AccountingHour, AccountingHourCreate, Accounti
                 status_code=404,
                 detail="The accounting hour with id ({}) does not exist in the system".format(obj_in.id),
             )
+        # Update balance
         curr_amount = db_obj.hour_count * db_obj.per_hour_cost
         new_amount = obj_in.hour_count * obj_in.per_hour_cost
         diff_amount = new_amount - curr_amount
         db = crud.accounting_balance.update(db, user_id=db_obj.user_id, add=diff_amount, commit=False)
 
-        # Update
+        # Update accounting hour
         obj_data = jsonable_encoder(db_obj)
         if isinstance(obj_in, dict):
             update_data = obj_in

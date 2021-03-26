@@ -19,6 +19,6 @@ class AccountingTransaction(Base):
     type_id = Column(Integer, ForeignKey('accounting_transaction_type.id'), index=True, nullable=False)
     amount = Column(Numeric, nullable=False)
     comment = Column(String)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     user = relationship('User')

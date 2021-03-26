@@ -11,3 +11,5 @@ export { IUserFeedbackCreate, IUserFeedback, IUserFeedbackInfo } from './UserFee
 export { ITool, IToolCreate, IToolUpdate } from './Tool'
 export { IUserTool, IUserToolCreate, IUserToolUpdate } from './UserTool'
 export { IAccountingHour, IAccountingHourCreateUpdate } from './AccountingHour'
+export { IAccountingTransactionType } from './AccountingTransactionType'
+export { IAccountingBalance } from './AccountingBalance'

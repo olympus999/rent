@@ -2,7 +2,7 @@ import {mutations} from './mutations';
 import {getters} from './getters';
 import {actions} from './actions';
 import {AdminState} from './state';
-import {IUserInfo} from '@/interfaces';
+import {IAccountingBalance, IUserInfo} from '@/interfaces';
 
 const defaultState: AdminState = {
   users: {
@@ -13,6 +13,9 @@ const defaultState: AdminState = {
     userInfo: {} as IUserInfo,
     userTools: [],
     accountingHours: [],
+    accountingTransactions: [],
+    accountingTransactionTypes: [],
+    accountingBalance: {} as IAccountingBalance
   },
   tools: [],
   usersRoles: [],

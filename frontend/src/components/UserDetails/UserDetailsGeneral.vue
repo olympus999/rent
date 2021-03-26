@@ -18,6 +18,10 @@
           <div
                   class="title primary--text text--darken-2"
           >{{user.last_name}}</div>
+          <div class="subheading secondary--text text--lighten-2">Balance</div>
+          <div
+                  class="title primary--text text--darken-2"
+          >{{balance}}</div>
         </div>
       </template>
     </v-card-text>
@@ -26,8 +30,8 @@
 
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
-  import {dispatchGetUserInfo} from '@/store/admin/actions';
-  import {readAdminUserInfo} from '@/store/admin/getters';
+  import {dispatchGetUserAccountingBalanceByUser, dispatchGetUserInfo} from '@/store/admin/actions';
+  import {readAdminUserAccountingBalance, readAdminUserInfo} from '@/store/admin/getters';
 
   const UserDetailsGeneralProps = Vue.extend({
     props: {
@@ -40,10 +44,15 @@
 
     public async mounted() {
       await dispatchGetUserInfo(this.$store, {userId: this.userId});
+      await dispatchGetUserAccountingBalanceByUser(this.$store, {userId: this.userId})
     }
 
     get user() {
       return readAdminUserInfo(this.$store)
+    }
+
+    get balance() {
+      return readAdminUserAccountingBalance(this.$store).balance
     }
 
   }

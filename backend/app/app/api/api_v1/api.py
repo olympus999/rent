@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from app.api.api_v1.endpoints import login, users, utils, user_roles, workers, \
     projects, google_maps, clients, user_feedback, tools, user_tool, \
     accounting_transaction, accounting_hour, accounting_balance, \
-    project_worker
+    project_worker, accounting_transaction_type
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
@@ -21,3 +21,4 @@ api_router.include_router(accounting_transaction.router, prefix="/accounting_tra
 api_router.include_router(accounting_hour.router, prefix="/accounting_hour", tags=["accounting_hour"])
 api_router.include_router(accounting_balance.router, prefix="/accounting_balance", tags=["accounting_balance"])
 api_router.include_router(project_worker.router, prefix="/project_worker", tags=["project_worker"])
+api_router.include_router(accounting_transaction_type.router, prefix="/accounting_transaction_type", tags=["accounting_transaction_type"])

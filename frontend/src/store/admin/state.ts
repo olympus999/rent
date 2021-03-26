@@ -5,8 +5,9 @@ import {
   IUserRole, IUserTool,
   IWorkerProfileAdmin,
   IWorkerProfileProjectAdmin,
-  IProjectWorkerAssociatedWithProject, IAccountingHour
+  IProjectWorkerAssociatedWithProject, IAccountingHour, IAccountingTransactionType, IAccountingBalance
 } from '@/interfaces';
+import {IAccountingTransaction} from '@/interfaces/AccountingTransaction';
 
 export interface AdminState {
   users: {
@@ -17,6 +18,9 @@ export interface AdminState {
     userInfo: IUserInfo;
     userTools: IUserTool[];
     accountingHours: IAccountingHour[];
+    accountingTransactions: IAccountingTransaction[];
+    accountingTransactionTypes: IAccountingTransactionType[];
+    accountingBalance: IAccountingBalance;
   },
   tools: ITool[];
   usersRoles: IUserRole[];

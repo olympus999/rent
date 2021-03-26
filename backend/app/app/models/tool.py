@@ -13,5 +13,5 @@ class Tool(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
     description = Column(String)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-    modified_dt = Column(DateTime, default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+    modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=func.current_timestamp())

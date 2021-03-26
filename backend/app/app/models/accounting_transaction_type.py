@@ -16,5 +16,5 @@ class AccountingTransactionType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, index=True, nullable=False, unique=True)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-    modified_dt = Column(DateTime, default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+    modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=func.current_timestamp())

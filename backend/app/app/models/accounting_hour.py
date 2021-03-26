@@ -21,8 +21,8 @@ class AccountingHour(Base):
     hour_count = Column(Numeric, nullable=False)
     per_hour_cost = Column(Numeric, nullable=False)
     comment = Column(String)
-    created_dt = Column(DateTime, default=datetime.datetime.utcnow)
-    modified_dt = Column(DateTime, default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
+    created_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+    modified_dt = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=func.current_timestamp())
 
     __table_args__ = (
         UniqueConstraint('user_id', 'day', name='uix_accounting_hour_user_id_day'),

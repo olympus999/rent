@@ -14,7 +14,7 @@ class CRUDAccountingTransaction(CRUDBase[AccountingTransaction, AccountingTransa
         db_obj = self.model(**obj_in_data)  # type: ignore
         db.add(db_obj)
 
-        db = crud.accounting_balance.update_no_commit(db, obj_in.user_id, obj_in.amount)
+        db = crud.accounting_balance.update(db, obj_in.user_id, obj_in.amount, commit=False)
 
         db.commit()
         db.refresh(db_obj)

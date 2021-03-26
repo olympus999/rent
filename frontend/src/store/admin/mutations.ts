@@ -1,5 +1,6 @@
 import {
-  IAccountingHour,
+  IAccountingBalance,
+  IAccountingHour, IAccountingTransactionType,
   IProject, IProjectWorkerAssociatedWithProject, ITool,
   IUserInfo,
   IUserProfile,
@@ -11,6 +12,8 @@ import {AdminState} from './state';
 import {getStoreAccessors} from 'typesafe-vuex';
 import {State} from '../state';
 import {ClientState} from '@/store/client/state';
+import {IAccountingTransaction} from '@/interfaces/AccountingTransaction';
+import Admin from '@/views/main/admin/Admin.vue';
 
 export const mutations = {
   setClients(state: AdminState, payload: IUserProfile[]) {
@@ -53,6 +56,15 @@ export const mutations = {
   },
   setUserAccountingHours(state: AdminState, payload: IAccountingHour[]) {
     state.users.accountingHours = payload
+  },
+  setUserAccountingTransactions(state: AdminState, payload: IAccountingTransaction[]) {
+    state.users.accountingTransactions = payload
+  },
+  setUserAccountingTransactionTypes(state: AdminState, payload: IAccountingTransactionType[]) {
+    state.users.accountingTransactionTypes = payload
+  },
+  setUserAccountingBalance(state: AdminState, payload: IAccountingBalance) {
+    state.users.accountingBalance = payload
   }
 };
 
@@ -71,3 +83,6 @@ export const commitSetTools = commit(mutations.setTools)
 export const commitSetUserTools = commit(mutations.setUserTools)
 export const commitSetProjectWorkersAssociatedWithUser = commit(mutations.setProjectWorkerAssociatedWithUser)
 export const commitSetUserAccountingHours = commit(mutations.setUserAccountingHours)
+export const commitSetUserAccountingTransaction = commit(mutations.setUserAccountingTransactions)
+export const commitSetUserAccountingTransactionTypes = commit(mutations.setUserAccountingTransactionTypes)
+export const commitSetUserAccountingBalance = commit(mutations.setUserAccountingBalance)

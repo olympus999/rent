@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
-    import {dispatchGetProjects, dispatchGetRemovedProjects} from '@/store/admin/actions';
+  import {Component, Vue, Watch} from 'vue-property-decorator';
+    import { dispatchGetProjects, dispatchGetRemovedProjects } from '@/store/admin/actions';
     import { readAdminProjects, readAdminRemovedProjects } from '@/store/admin/getters';
 
     const ProjectProps = Vue.extend({
       props: {
-        showRemovedProjects: {type: Boolean, default: false}
+        showRemovedProjects: {type: Boolean, default: false},
       }
     })
 
@@ -52,19 +52,29 @@
         }
       ];
 
-        get projects() {
-          if (this.showRemovedProjects) {
-            return readAdminRemovedProjects(this.$store)
-          }
-            return readAdminProjects(this.$store);
+      // Make sure component is reloaded when switching between projects and removed projects
+      @Watch('$route', {immediate: true})
+      async onChangeURLId(oldValue: any, newValue: any) {
+        await this.getData()
+      }
+
+      get projects() {
+        if (this.showRemovedProjects) {
+          return readAdminRemovedProjects(this.$store)
         }
-        public async mounted() {
-          if (this.showRemovedProjects) {
-            await dispatchGetRemovedProjects(this.$store)
-          } else {
-            await dispatchGetProjects(this.$store)
-          }
+          return readAdminProjects(this.$store);
+      }
+      public async mounted() {
+        await this.getData()
+      }
+
+      async getData() {
+        if (this.showRemovedProjects) {
+          await dispatchGetRemovedProjects(this.$store)
+        } else {
+          await dispatchGetProjects(this.$store)
         }
+      }
     }
 </script>
 

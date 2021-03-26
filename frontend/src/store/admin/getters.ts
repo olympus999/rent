@@ -1,6 +1,7 @@
 import {AdminState} from './state';
 import {getStoreAccessors} from 'typesafe-vuex';
 import {State} from '../state';
+import Admin from '@/views/main/admin/Admin.vue';
 
 export const getters = {
   adminClients: (state: AdminState) => state.users.clients,
@@ -35,6 +36,9 @@ export const getters = {
   adminUserTools: (state: AdminState) => state.users.userTools,
   adminProjectWorkersAssociatedWithUser: (state: AdminState) => state.projectWorkersAssociatedWithUser,
   adminUserAccountingHours: (state: AdminState) => state.users.accountingHours,
+  adminUserAccountingTransactions: (state: AdminState) => state.users.accountingTransactions,
+  adminUserAccountingTransactionTypes: (state: AdminState) => state.users.accountingTransactionTypes,
+  adminUserAccountingBalance: (state: AdminState) => state.users.accountingBalance
 };
 
 const {read} = getStoreAccessors<AdminState, State>('');
@@ -53,3 +57,6 @@ export const readAdminTools = read(getters.adminTools);
 export const readAdminUserTools = read(getters.adminUserTools);
 export const readAdminProjectWorkersAssociatedWithUser = read(getters.adminProjectWorkersAssociatedWithUser);
 export const readAdminUserAccountingHours = read(getters.adminUserAccountingHours)
+export const readAdminUserAccountingTransactions = read(getters.adminUserAccountingTransactions)
+export const readAdminUserAccountingTransactionTypes = read(getters.adminUserAccountingTransactionTypes)
+export const readAdminUserAccountingBalance = read(getters.adminUserAccountingBalance)
