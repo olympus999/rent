@@ -6,6 +6,9 @@ services:
     networks:
       - ${TRAEFIK_PUBLIC_NETWORK}
       - default
+    ports:
+      - "80:80"
+      - "8090:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --docker \
@@ -116,12 +119,17 @@ services:
       dockerfile: backend.dockerfile
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
-    deploy:
-      labels:
-        - traefik.frontend.rule=PathPrefix:/api,/docs,/redoc
-        - traefik.enable=true
-        - traefik.port=80
-        - traefik.tags=${TRAEFIK_TAG}
+    labels:
+      - traefik.frontend.rule=PathPrefix:/api,/docs,/redoc
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.tags=${TRAEFIK_TAG}
+#    deploy:
+#      labels:
+#        - traefik.frontend.rule=PathPrefix:/api,/docs,/redoc
+#        - traefik.enable=true
+#        - traefik.port=80
+#        - traefik.tags=${TRAEFIK_TAG}
   
   celeryworker:
     image: '${DOCKER_IMAGE_CELERYWORKER}:${TAG-latest}'
@@ -152,12 +160,12 @@ services:
       - traefik.enable=true
       - traefik.port=80
       - traefik.tags=${TRAEFIK_TAG}
-    deploy:
-      labels:
-        - traefik.frontend.rule=PathPrefix:/
-        - traefik.enable=true
-        - traefik.port=80
-        - traefik.tags=${TRAEFIK_TAG}
+#    deploy:
+#      labels:
+#        - traefik.frontend.rule=PathPrefix:/
+#        - traefik.enable=true
+#        - traefik.port=80
+#        - traefik.tags=${TRAEFIK_TAG}
 
 volumes:
   app-db-data:
