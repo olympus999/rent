@@ -24,7 +24,7 @@ services:
         - traefik.frontend.rule=Host:${DOMAIN}
         # For a domain with and without 'www'
         # Comment the previous line above and un-comment the line below
-        # - "traefik.frontend.rule=Host:www.${DOMAIN},${DOMAIN}"
+#         - "traefik.frontend.rule=Host:www.${DOMAIN},${DOMAIN}"
         - traefik.enable=true
         - traefik.port=80
         - traefik.tags=${TRAEFIK_PUBLIC_TAG}
@@ -147,6 +147,11 @@ services:
       context: ./frontend
       args:
         FRONTEND_ENV: ${FRONTEND_ENV-production}
+    labels:
+      - traefik.frontend.rule=PathPrefix:/
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.tags=${TRAEFIK_TAG}
     deploy:
       labels:
         - traefik.frontend.rule=PathPrefix:/
