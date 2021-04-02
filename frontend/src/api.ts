@@ -95,10 +95,10 @@ export const api = {
   async getTools(token: string) {
     console.log("URL")
     console.log(`${apiUrl}/api/v1/tools`)
-    return axios.get<ITool[]>(`${apiUrl}/api/v1/tools`, authHeaders(token))
+    return axios.get<ITool[]>(`${apiUrl}/api/v1/tools/`, authHeaders(token))
   },
   async createTool(token: string, data: IToolCreate) {
-    return axios.post<ITool>(`${apiUrl}/api/v1/tools`, data, authHeaders(token))
+    return axios.post<ITool>(`${apiUrl}/api/v1/tools/`, data, authHeaders(token))
   },
   async updateTool(token: string, data: IToolUpdate) {
     return axios.put<ITool>(`${apiUrl}/api/v1/tools/${data.id}`, data, authHeaders(token))
