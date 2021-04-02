@@ -93,16 +93,16 @@ export const api = {
     return axios.get<IUserInfo>(`${apiUrl}/api/v1/users/info/${userId}`, authHeaders(token))
   },
   async getTools(token: string) {
-    return axios.get<ITool[]>(`${apiUrl}/api/v1/ttools`, authHeaders(token))
+    return axios.get<ITool[]>(`${apiUrl}/api/v1/ttt`, authHeaders(token))
   },
   async createTool(token: string, data: IToolCreate) {
-    return axios.post<ITool>(`${apiUrl}/api/v1/ttools`, data, authHeaders(token))
+    return axios.post<ITool>(`${apiUrl}/api/v1/ttt`, data, authHeaders(token))
   },
   async updateTool(token: string, data: IToolUpdate) {
-    return axios.put<ITool>(`${apiUrl}/api/v1/ttools/${data.id}`, data, authHeaders(token))
+    return axios.put<ITool>(`${apiUrl}/api/v1/ttt/${data.id}`, data, authHeaders(token))
   },
   async removeTool(token: string, toolId: number) {
-    return axios.delete(`${apiUrl}/api/v1/ttools/${toolId}`, authHeaders(token))
+    return axios.delete(`${apiUrl}/api/v1/ttt/${toolId}`, authHeaders(token))
   },
   async getUserTools(token: string, userId: number) {
     return axios.get<IUserTool[]>(`${apiUrl}/api/v1/user_tools/user/${userId}`, authHeaders(token))
