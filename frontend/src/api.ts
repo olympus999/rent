@@ -125,7 +125,7 @@ export const api = {
     return axios.get<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/user/${userId}/${minDate}/${maxDate}`, authHeaders(token))
   },
   async createUpdateAccountingHours(token: string, data: IAccountingHourCreateUpdate[]) {
-    return axios.post<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour`, data, authHeaders(token))
+    return axios.post<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/`, data, authHeaders(token))
   },
   async getAccountingTransactions(token: string, userId: number) {
     return axios.get(`${apiUrl}/api/v1/accounting_transaction/user/${userId}`, authHeaders(token))
