@@ -1,12 +1,10 @@
-from typing import List
-
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy.orm import Session
-
-from app import crud
+from typing import Any, Dict, Optional, Union, List
 from app.crud.base import CRUDBase
 from app.models.accounting_transaction import AccountingTransaction
 from app.schemas.accounting_transaction import AccountingTransactionCreate, AccountingTransactionUpdate
+from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
+from app import crud
 
 
 class CRUDAccountingTransaction(CRUDBase[AccountingTransaction, AccountingTransactionCreate, AccountingTransactionUpdate]):

@@ -1,7 +1,7 @@
-import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, ForeignKey, DateTime, func, Numeric
+import datetime
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Date, func, Float, Numeric
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base

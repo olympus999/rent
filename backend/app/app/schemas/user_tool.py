@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, List
+import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 # Shared properties

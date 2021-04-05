@@ -1,15 +1,22 @@
+from typing import Optional, TypeVar, List, Any
 import datetime
-from typing import Any
 
-from sqlalchemy.orm import Session, subqueryload
+from fastapi.encoders import jsonable_encoder
+from fastapi import HTTPException
+from pydantic import BaseModel
+from sqlalchemy.orm import Session, lazyload, raiseload, joinedload, subqueryload
 
+from app.db.base_class import Base
 from app.crud.base import CRUDBase
 from app.crud.utils import update_or_create_project
-from app.models.project import Project
+from app.crud import user
 from app.models.project_worker import ProjectWorker
 from app.models.project_worker_active import ProjectWorkerActive
+from app.models.user_feedback import UserFeedback
 from app.models.user import User
-from app.schemas.project import ProjectCreate, ProjectUpdate
+from app import schemas
+from app.models.project import Project
+from app.schemas.project import ProjectBase, ProjectCreate, ProjectUpdate
 
 
 class CRUDProject(CRUDBase[Project, ProjectCreate, ProjectUpdate]):

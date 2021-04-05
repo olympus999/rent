@@ -1,10 +1,10 @@
-from typing import Any
-
-from fastapi import APIRouter, Depends
+from typing import Any, List
+from fastapi import APIRouter, Body, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app import crud, models
+from app import crud, models, schemas
 from app.api import deps
+from app.schemas.accounting_transaction import AccountingTransactionCreate
 
 router = APIRouter()
 

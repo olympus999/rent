@@ -1,6 +1,6 @@
-import datetime
 from typing import TYPE_CHECKING
 
+import datetime
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 

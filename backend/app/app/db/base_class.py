@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 

@@ -1,8 +1,6 @@
+from typing import Optional, List
 from pydantic import BaseModel
 from datetime import datetime
-from datetime import datetime
-
-from pydantic import BaseModel
 
 
 class UserFeedbackBase(BaseModel):
@@ -38,5 +36,5 @@ class UserFeedback(UserFeedbackUpdate):
 
 
 from . import project_worker
-
+from . import project_worker_active
 UserFeedbackWithProject.update_forward_refs()

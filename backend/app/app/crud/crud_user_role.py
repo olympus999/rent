@@ -1,9 +1,11 @@
-from typing import TypeVar
+from typing import Generic, Optional, Type, TypeVar
 
+from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
 
-from app.crud.base import CRUDBase
 from app.db.base_class import Base
+from app.crud.base import CRUDBase
 from app.models.user_role import UserRole
 from app.schemas.user_role import UserRoleCreate, UserRoleUpdate
 

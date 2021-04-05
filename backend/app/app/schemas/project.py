@@ -1,9 +1,9 @@
-from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel
-
+from datetime import datetime
 from .project_worker import ProjectWorkerAdmin, ProjectWorkerAdminCreateUpdate
+from .project_worker_active import ProjectWorkerActiveBase
 
 
 class ProjectAdminCreateUpdate(BaseModel):
@@ -82,9 +82,9 @@ class ProjectWorkerDetailedUpdate(BaseModel):
         orm_mode = True
 
 
-from .user import User
-from .project_worker import ProjectWorkerWithWorkerAndUserFeedback
-
+from .user import Worker, User
+from .project_worker import ProjectWorkerAdmin, ProjectWorkerAdminCreateUpdate, ProjectWorkerWithWorkerAndUserFeedback
+from .project_worker_active import ProjectWorkerActiveBase
 ProjectWithUser.update_forward_refs()
 ProjectAdminCreateUpdate.update_forward_refs()
 ProjectWithProjectWorker.update_forward_refs()

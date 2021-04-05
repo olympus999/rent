@@ -1,15 +1,13 @@
-from typing import List
-
-import numpy as np
-from fastapi import HTTPException
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy import Date
-from sqlalchemy.orm import Session, subqueryload
-
-from app import crud
+from typing import Any, Dict, Optional, Union, List
 from app.crud.base import CRUDBase
 from app.models.accounting_hour import AccountingHour
 from app.schemas.accounting_hour import AccountingHourCreate, AccountingHourUpdate, AccountingHourCreateOrUpdate
+from sqlalchemy.orm import Session, subqueryload
+from sqlalchemy import Date
+from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter, Body, Depends, HTTPException
+from app import crud
+import numpy as np
 
 
 class CRUDAccountingHour(CRUDBase[AccountingHour, AccountingHourCreate, AccountingHourUpdate]):

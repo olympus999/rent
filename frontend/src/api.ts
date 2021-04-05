@@ -74,7 +74,7 @@ export const api = {
     return axios.get<IUserRole[]>(`${apiUrl}/api/v1/user_roles/`, authHeaders(token));
   },
   async passwordRecovery(email: string) {
-    return axios.post(`${apiUrl}/api/v1/password-recovery/${email}/`);
+    return axios.post(`${apiUrl}/api/v1/password-recovery/${email}`);
   },
   async resetPassword(password: string, token: string) {
     return axios.post(`${apiUrl}/api/v1/reset-password/`, {
@@ -93,6 +93,8 @@ export const api = {
     return axios.get<IUserInfo>(`${apiUrl}/api/v1/users/info/${userId}`, authHeaders(token))
   },
   async getTools(token: string) {
+    console.log("URL")
+    console.log(`${apiUrl}/api/v1/tools`)
     return axios.get<ITool[]>(`${apiUrl}/api/v1/tools/`, authHeaders(token))
   },
   async createTool(token: string, data: IToolCreate) {
@@ -111,7 +113,7 @@ export const api = {
     return axios.post<IUserTool>(`${apiUrl}/api/v1/user_tools/`, data, authHeaders(token))
   },
   async updateUserTool(token: string, data: IUserToolUpdate) {
-    return axios.put<IUserTool>(`${apiUrl}/api/v1/user_tools/${data.id}/`, data, authHeaders(token))
+    return axios.put<IUserTool>(`${apiUrl}/api/v1/user_tools/${data.id}`, data, authHeaders(token))
   },
   async removeUserTool(token: string, userToolId: number) {
     return axios.delete(`${apiUrl}/api/v1/user_tools/${userToolId}`, authHeaders(token))
@@ -123,7 +125,7 @@ export const api = {
     return axios.get<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/user/${userId}/${minDate}/${maxDate}`, authHeaders(token))
   },
   async createUpdateAccountingHours(token: string, data: IAccountingHourCreateUpdate[]) {
-    return axios.post<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour/`, data, authHeaders(token))
+    return axios.post<IAccountingHour[]>(`${apiUrl}/api/v1/accounting_hour`, data, authHeaders(token))
   },
   async getAccountingTransactions(token: string, userId: number) {
     return axios.get(`${apiUrl}/api/v1/accounting_transaction/user/${userId}`, authHeaders(token))
