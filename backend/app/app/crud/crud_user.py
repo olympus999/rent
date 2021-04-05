@@ -1,17 +1,17 @@
 from typing import Any, Dict, Optional, Union, List
+
 import numpy as np
 from sqlalchemy.orm import Session, subqueryload
 
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
-from app.models.user import User
-from app.schemas.user import UserCreate, UserUpdate
 from app.crud.utils import id_to_list
-
-from app.models.project_worker_active import ProjectWorkerActive
-from app.models.project_worker import ProjectWorker
 from app.models.project import Project
+from app.models.project_worker import ProjectWorker
+from app.models.project_worker_active import ProjectWorkerActive
+from app.models.user import User
 from app.models.user_feedback import UserFeedback
+from app.schemas.user import UserCreate, UserUpdate
 
 
 def workers(db: Session):

@@ -1,12 +1,12 @@
-from typing import TYPE_CHECKING
 import datetime
-from sqlalchemy import Boolean, Column, Integer, String, DateTime, \
+from typing import TYPE_CHECKING
+
+from sqlalchemy import Column, Integer, DateTime, \
     ForeignKey, SmallInteger, CheckConstraint, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
-from app.models.project_worker import ProjectWorker
-from app.models.project_worker_active import ProjectWorkerActive
+
 # from app.models import ProjectWorkerActive, ProjectWorker
 # from app.models import ProjectWorkerActive, ProjectWorker
 

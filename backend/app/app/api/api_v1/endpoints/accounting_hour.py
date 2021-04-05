@@ -1,15 +1,11 @@
+from datetime import date
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from datetime import date
 
-from app import crud, models, schemas
+from app import crud, models
 from app.api import deps
-from app.core.config import settings
-from app.utils import send_new_account_email
 from app.schemas.accounting_hour import AccountingHourCreateOrUpdate, AccountingHour
 
 router = APIRouter()

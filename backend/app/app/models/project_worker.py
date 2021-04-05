@@ -1,10 +1,10 @@
 import datetime
-from sqlalchemy import Integer, ForeignKey, Table, Column, DateTime, String, Boolean, UniqueConstraint
+
+from sqlalchemy import Integer, ForeignKey, Column, DateTime, Boolean, UniqueConstraint
 from sqlalchemy import func
 from sqlalchemy.orm import relationship
-from app.db.base_class import Base
 
-from app.models.project_worker_active import ProjectWorkerActive
+from app.db.base_class import Base
 
 
 class ProjectWorker(Base):

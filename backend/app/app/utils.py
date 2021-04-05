@@ -4,12 +4,11 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 import emails
+import googlemaps
 from emails.template import JinjaTemplate
 from jose import jwt
 
 from app.core.config import settings
-
-import googlemaps
 
 gmaps = googlemaps.Client(key='AIzaSyAlh47kwoKu3H93AyK_ds3xh7xrpf13Klg')
 

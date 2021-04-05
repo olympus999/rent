@@ -1,7 +1,7 @@
-from typing import Optional, List
+from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
-from datetime import datetime
 
 
 class ProjectWorkerBase(BaseModel):
@@ -77,7 +77,7 @@ class ProjectWorkerProject(BaseModel):
 
 from .user_feedback import UserFeedback
 from .project import ProjectWithUser, Project
-from .user import Worker, WorkerAdmin
+from .user import WorkerAdmin
 from .project_worker_active import ProjectWorkerActiveBase
 ProjectWorkerProjectAdmin.update_forward_refs()
 ProjectWorkerAdminCreateUpdate.update_forward_refs()

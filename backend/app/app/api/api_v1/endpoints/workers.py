@@ -1,9 +1,7 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Depends
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-import numpy as np
 
 from app import crud, models, schemas
 from app.api import deps

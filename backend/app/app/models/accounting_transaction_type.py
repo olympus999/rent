@@ -1,11 +1,9 @@
+import datetime
 from typing import TYPE_CHECKING
 
-import datetime
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, func, Float
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, DateTime, func
 
 from app.db.base_class import Base
-from app.models.project_worker import ProjectWorker
 
 if TYPE_CHECKING:
     pass

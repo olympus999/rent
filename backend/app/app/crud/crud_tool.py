@@ -1,8 +1,10 @@
-from typing import Any, Dict, Optional, Union, List
+from typing import Optional
+
+from sqlalchemy.orm import Session
+
 from app.crud.base import CRUDBase
 from app.models.tool import Tool
 from app.schemas.tool import ToolCreate, ToolUpdate
-from sqlalchemy.orm import Session
 
 
 class CRUDUser(CRUDBase[Tool, ToolCreate, ToolUpdate]):

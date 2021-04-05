@@ -1,8 +1,9 @@
-from typing import Any, List
-from fastapi import APIRouter, Body, Depends, HTTPException
+from typing import Any
+
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app import crud, models, schemas
+from app import crud, models
 from app.api import deps
 from app.schemas.accounting_transaction import AccountingTransactionCreate
 

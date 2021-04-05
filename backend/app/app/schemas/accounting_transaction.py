@@ -1,8 +1,9 @@
-from typing import Optional, List
-import datetime
 from decimal import Decimal
+from typing import Optional
 
-from pydantic import BaseModel, EmailStr, DecimalMaxPlacesError
+from pydantic import BaseModel
+
+
 # from . import project_worker
 
 

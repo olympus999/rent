@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 from app.models.project_worker import ProjectWorker
 from app.models.user_feedback import UserFeedback
-from app.models.project_worker_active import ProjectWorkerActive
+
 # from app.models import ProjectWorkerActive, ProjectWorker
 # from app.models import ProjectWorkerActive, ProjectWorker
 

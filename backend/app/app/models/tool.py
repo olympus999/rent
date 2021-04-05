@@ -1,7 +1,7 @@
-from typing import TYPE_CHECKING
 import datetime
-from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint, DateTime, func
-from sqlalchemy.orm import relationship
+from typing import TYPE_CHECKING
+
+from sqlalchemy import Column, Integer, String, DateTime, func
 
 from app.db.base_class import Base
 
